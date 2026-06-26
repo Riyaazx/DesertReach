@@ -86,53 +86,41 @@
       position: relative;
       display: grid;
       place-items: center;
-      width: 58px;
-      height: 58px;
+      flex: 0 0 56px;
+      width: 56px;
+      height: 56px;
       overflow: hidden;
       border-radius: 18px;
-      background: linear-gradient(145deg, #119b86, #063f37);
+      color: #ffffff;
+      background: linear-gradient(145deg, var(--green2), var(--dark));
       box-shadow:
         0 12px 28px rgba(10, 118, 103, 0.24),
-        inset 0 1px 0 rgba(255, 255, 255, 0.16);
-      isolation: isolate;
-    }
-
-    .logo::before {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 14px;
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
 
     .logo::after {
       content: "";
       position: absolute;
-      top: -14px;
-      right: -14px;
-      width: 38px;
-      height: 38px;
+      top: -16px;
+      right: -16px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.08);
     }
 
-    .logo-art {
+    .logo svg {
       position: relative;
       z-index: 1;
-      width: 40px;
-      height: 40px;
-      display: block;
+      width: 34px;
+      height: 34px;
     }
 
     .logo-pin {
-      fill: rgba(255, 255, 255, 0.08);
+      fill: rgba(255, 255, 255, 0.1);
       stroke: #ffffff;
       stroke-width: 2.4;
       stroke-linejoin: round;
-    }
-
-    .logo-pin-dot {
-      fill: #ffffff;
     }
 
     .logo-route {
@@ -140,12 +128,11 @@
       stroke: rgba(255, 255, 255, 0.72);
       stroke-width: 2;
       stroke-linecap: round;
-      stroke-dasharray: 3 4;
+      stroke-dasharray: 2.5 3.5;
     }
 
-    .logo-node {
+    .logo-point {
       fill: #ffffff;
-      opacity: 0.9;
     }
 
     .brand h1 {
@@ -196,14 +183,25 @@
       position: relative;
       overflow: hidden;
       display: grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 28px;
+      grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.55fr);
+      gap: clamp(28px, 5vw, 58px);
       align-items: center;
-      padding: clamp(28px, 5vw, 54px);
+      padding: clamp(34px, 5vw, 58px);
       border-radius: 30px;
       color: #ffffff;
-      background: linear-gradient(110deg, var(--dark), var(--green2));
+      background: linear-gradient(112deg, #064c43 0%, var(--dark) 38%, var(--green2) 100%);
       box-shadow: var(--shadow);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: -90px;
+      top: -120px;
+      width: 270px;
+      height: 270px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
     }
 
     .hero::after {
@@ -214,7 +212,7 @@
       width: 420px;
       height: 320px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.065);
     }
 
     .hero > * {
@@ -222,54 +220,76 @@
       z-index: 1;
     }
 
+    .hero-copy {
+      max-width: 720px;
+    }
+
     .eyebrow {
-      display: inline-block;
-      padding: 8px 12px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.1);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 900;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.065em;
       text-transform: uppercase;
     }
 
     .hero h2 {
-      margin: 18px 0 12px;
-      font-size: clamp(2rem, 5vw, 4rem);
-      line-height: 1.03;
-      letter-spacing: -0.035em;
+      max-width: 720px;
+      margin: 21px 0 16px;
+      font-size: clamp(2.25rem, 4.4vw, 3.75rem);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
     }
 
     .hero p {
+      max-width: 700px;
       margin: 0;
       color: rgba(255, 255, 255, 0.84);
-      line-height: 1.7;
+      font-size: clamp(0.96rem, 1.5vw, 1.05rem);
+      line-height: 1.72;
     }
 
     .hero-stats {
       display: grid;
-      gap: 12px;
+      gap: 13px;
     }
 
     .hero-stat {
-      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      padding: 18px 19px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.11);
-      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.105);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-stat::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.72), transparent);
+      opacity: 0.55;
     }
 
     .hero-stat strong {
       display: block;
-      font-size: 1.35rem;
+      font-size: 1.1rem;
+      line-height: 1.25;
     }
 
     .hero-stat span {
       display: block;
-      margin-top: 5px;
+      margin-top: 6px;
       color: rgba(255, 255, 255, 0.76);
-      font-size: 0.82rem;
+      font-size: 0.78rem;
+      line-height: 1.45;
     }
 
     .section {
@@ -1131,6 +1151,18 @@
 
       header {
         align-items: flex-start;
+        gap: 12px;
+      }
+
+      .logo {
+        flex-basis: 50px;
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+      }
+
+      .brand h1 {
+        font-size: 1.32rem;
       }
 
       .brand p {
@@ -1204,19 +1236,18 @@
   <div class="app">
     <header>
       <div class="brand">
-        <div class="logo" aria-label="DesertReach map and location logo">
-          <svg class="logo-art" viewBox="0 0 64 64" aria-hidden="true">
-            <path class="logo-route" d="M11 47c8-8 14-2 22-10 6-6 12-4 20-12"/>
-            <circle class="logo-node" cx="11" cy="47" r="3.2"/>
-            <circle class="logo-node" cx="53" cy="25" r="3.2"/>
-            <path class="logo-pin" d="M32 8c-8.8 0-16 7.2-16 16 0 11.6 16 28 16 28s16-16.4 16-28c0-8.8-7.2-16-16-16Z"/>
-            <circle class="logo-pin-dot" cx="32" cy="24" r="5.2"/>
+        <div class="logo" aria-label="DesertReach location-route logo">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path class="logo-pin" d="M24 5.5c-7.5 0-13.5 5.9-13.5 13.3 0 9.8 13.5 23.7 13.5 23.7s13.5-13.9 13.5-23.7C37.5 11.4 31.5 5.5 24 5.5Z"/>
+            <path class="logo-route" d="M17.2 30.6c3.4-2.7 6.3-3.4 9-2.2 2 .9 3.7.7 5.3-.5"/>
+            <circle class="logo-point" cx="19" cy="29.5" r="2.2"/>
+            <circle class="logo-point" cx="31.6" cy="27.2" r="2.2"/>
+            <circle class="logo-point" cx="24" cy="18.3" r="4.1"/>
           </svg>
         </div>
-
-        <div>
+    <div>
       <h1>DesertReach</h1>
-      <p data-en="The Rural Rescue Relay" data-ar="سلسلة الإنقاذ الريفية"></p>
+      <p data-en="Al Qua'a Rural Rescue Relay" data-ar="سلسلة الإنقاذ الريفية في القوع"></p>
     </div>
   </div>
 
@@ -1231,7 +1262,7 @@
 <main>
   <section id="residentView" class="view active">
     <section class="hero">
-      <div>
+      <div class="hero-copy">
         <span
           class="eyebrow"
           data-en="Tatweer Challenge 2 · Al Qua'a"
@@ -1239,30 +1270,35 @@
         ></span>
 
         <h2
-          data-en="The nearest suitable helper now. The right specialist next."
-          data-ar="أقرب مساعد مناسب الآن، والمتخصص الصحيح بعده."
+          data-en="Faster rural response. The right help, matched quickly."
+          data-ar="استجابة ريفية أسرع. المساعدة المناسبة في الوقت المناسب."
         ></h2>
 
         <p
-          data-en="DesertReach builds a rescue relay for remote rural emergencies: a nearby trained community responder, a specialist backup, clear access information, and automatic escalation if nobody answers."
-          data-ar="ينشئ DesertReach سلسلة إنقاذ للطوارئ الريفية البعيدة: مستجيب مجتمعي مدرب قريب، ودعم متخصص، ومعلومات وصول واضحة، وتصعيد تلقائي إذا لم يستجب أحد."
+          data-en="DesertReach connects Al Qua'a residents with the nearest suitable community responder, prepares specialist backup, and shares the rural access details needed to reach remote locations safely."
+          data-ar="يربط DesertReach سكان القوع بأقرب مستجيب مجتمعي مناسب، ويجهز دعماً متخصصاً، ويشارك تفاصيل الوصول الريفية اللازمة للوصول إلى المواقع البعيدة بأمان."
         ></p>
       </div>
 
       <div class="hero-stats">
         <div class="hero-stat">
-          <strong data-en="Skills + distance" data-ar="المهارات + المسافة"></strong>
-          <span data-en="explainable matching" data-ar="مطابقة قابلة للتفسير"></span>
+          <strong data-en="Suitable matching" data-ar="مطابقة مناسبة"></strong>
+          <span data-en="Skills, equipment and distance" data-ar="المهارات والمعدات والمسافة"></span>
         </div>
 
         <div class="hero-stat">
-          <strong data-en="2-level relay" data-ar="سلسلة من مستويين"></strong>
-          <span data-en="community + specialist" data-ar="المجتمع + المتخصص"></span>
+          <strong data-en="Two-level response" data-ar="استجابة من مستويين"></strong>
+          <span data-en="Community responder + specialist backup" data-ar="مستجيب مجتمعي + دعم متخصص"></span>
         </div>
 
         <div class="hero-stat">
-          <strong data-en="Low-signal ready" data-ar="جاهز لضعف الشبكة"></strong>
-          <span data-en="copyable rescue packet" data-ar="حزمة إنقاذ قابلة للنسخ"></span>
+          <strong data-en="Low-signal support" data-ar="دعم عند ضعف الشبكة"></strong>
+          <span data-en="A compact, copyable rescue packet" data-ar="حزمة إنقاذ مختصرة وقابلة للنسخ"></span>
+        </div>
+
+        <div class="hero-stat">
+          <strong data-en="Rural access clarity" data-ar="وضوح الوصول الريفي"></strong>
+          <span data-en="Landmarks, gates and 4×4 requirements" data-ar="المعالم والبوابات ومتطلبات الدفع الرباعي"></span>
         </div>
       </div>
     </section>
@@ -1758,7 +1794,7 @@
 
   <section id="responderView" class="view">
     <section class="hero">
-      <div>
+      <div class="hero-copy">
         <span
           class="eyebrow"
           data-en="Responder Command View"
@@ -1766,8 +1802,8 @@
         ></span>
 
         <h2
-          data-en="Accept, travel, arrive — or escalate without wasting time."
-          data-ar="اقبل وتحرك وصل، أو صعّد دون إضاعة الوقت."
+          data-en="A clear response journey, from acceptance to arrival."
+          data-ar="رحلة استجابة واضحة من قبول الطلب حتى الوصول."
         ></h2>
 
         <p
