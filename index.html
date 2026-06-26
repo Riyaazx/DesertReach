@@ -1,272 +1,3533 @@
 <!DOCTYPE html>
+
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="DesertReach Rescue Relay coordinates the nearest suitable community responder and specialist backup for rural emergencies.">
   <title>DesertReach Rescue Relay | Tatweer Challenge 2</title>
+
   <style>
-    :root{
-      --green:#0a7667;--green2:#0d8f7b;--dark:#063f37;--mint:#dff5ef;--bg:#f5faf7;
-      --ink:#16211f;--muted:#66736f;--line:#dfe8e4;--red:#cf4040;--success:#17894f;
-      --amber:#c67a14;--amber-bg:#fff6e8;--blue:#2b6cb0;--sand:#f3e4c6;--white:#fff;
-      --shadow:0 18px 48px rgba(18,58,49,.12);--radius:24px
+    :root {
+      --green: #0a7667;
+      --green2: #0d8f7b;
+      --dark: #063f37;
+      --mint: #dff5ef;
+      --bg: #f5faf7;
+      --ink: #16211f;
+      --muted: #66736f;
+      --line: #dfe8e4;
+      --red: #cf4040;
+      --success: #17894f;
+      --amber: #c67a14;
+      --amber-bg: #fff6e8;
+      --blue: #2b6cb0;
+      --sand: #f3e4c6;
+      --white: #ffffff;
+      --shadow: 0 18px 48px rgba(18, 58, 49, 0.12);
+      --radius: 24px;
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;color:var(--ink);background:linear-gradient(180deg,#fffdf8,var(--bg));font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-    button,input,textarea{font:inherit}button{cursor:pointer}
-    .notice{padding:9px 16px;text-align:center;color:#fff;background:var(--dark);font-size:.82rem;font-weight:800}
-    .app{width:min(1180px,calc(100% - 28px));margin:auto;padding-bottom:46px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0 17px}
-    .brand{display:flex;align-items:center;gap:12px}.logo{display:grid;place-items:center;width:50px;height:50px;border-radius:16px;color:#fff;background:linear-gradient(145deg,var(--green2),var(--dark));font-size:1.35rem;box-shadow:0 10px 24px rgba(10,118,103,.22)}
-    .brand h1{margin:0;font-size:1.55rem;line-height:1}.brand p{margin:6px 0 0;color:var(--muted);font-size:.82rem;font-weight:650}
-    .nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}.nav button{min-height:42px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--dark);font-weight:850}.nav button.active{color:#fff;background:var(--green);border-color:var(--green)}
-    .view{display:none}.view.active{display:block}
-    .hero{display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:center;padding:clamp(28px,5vw,54px);border-radius:30px;color:#fff;background:linear-gradient(110deg,var(--dark),var(--green2));box-shadow:var(--shadow);overflow:hidden;position:relative}
-    .hero:after{content:"";position:absolute;right:-110px;bottom:-165px;width:420px;height:320px;border-radius:50%;background:rgba(255,255,255,.07)}
-    .hero>*{position:relative;z-index:1}.eyebrow{display:inline-block;padding:8px 12px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(255,255,255,.1);font-size:.78rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.hero h2{margin:18px 0 12px;font-size:clamp(2rem,5vw,4rem);line-height:1.03;letter-spacing:-.035em}.hero p{margin:0;color:rgba(255,255,255,.84);line-height:1.7}
-    .hero-stats{display:grid;gap:12px}.hero-stat{padding:18px;border:1px solid rgba(255,255,255,.2);border-radius:18px;background:rgba(255,255,255,.11);backdrop-filter:blur(4px)}.hero-stat strong{display:block;font-size:1.35rem}.hero-stat span{display:block;margin-top:5px;color:rgba(255,255,255,.76);font-size:.82rem}
-    .section{margin-top:24px}.section h3{margin:0;font-size:clamp(1.4rem,3vw,2rem)}.section>p{margin:6px 0 14px;color:var(--muted);line-height:1.55}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.card{padding:clamp(19px,3vw,28px);border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 12px 34px rgba(24,58,49,.08)}
-    .step{display:inline-grid;place-items:center;min-width:34px;height:34px;margin-bottom:12px;padding:0 9px;border-radius:10px;color:var(--dark);background:var(--mint);font-weight:900}.card h4{margin:0 0 7px;font-size:1.12rem}.copy{margin:0 0 18px;color:var(--muted);line-height:1.55;font-size:.92rem}
-    .emergency-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.choice{min-height:98px;padding:14px 10px;border:1px solid var(--line);border-radius:15px;background:#fff;color:var(--ink);transition:.18s}.choice:hover{transform:translateY(-2px);border-color:var(--green)}.choice.selected{border-color:var(--green);background:#ecfaf6;box-shadow:inset 0 0 0 2px rgba(11,141,121,.12)}.choice span{display:block;margin-bottom:7px;font-size:1.5rem}.choice strong{font-size:.82rem}
-    .priority-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.priority{padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:left}.priority.selected{border-color:var(--red);background:#fff1f1}.priority strong{display:block}.priority small{display:block;margin-top:4px;color:var(--muted);line-height:1.35}
-    .location-box{padding:16px;border:1px dashed #deb875;border-radius:16px;background:#fffaf1}.location-status{display:flex;gap:12px;margin-bottom:14px}.location-icon{display:grid;place-items:center;flex:0 0 40px;height:40px;border-radius:12px;background:#f7ecd8}.location-status strong{display:block}.location-status small{display:block;margin-top:4px;color:var(--muted);word-break:break-word}
-    .row{display:flex;flex-wrap:wrap;gap:9px}.btn{min-height:45px;padding:0 16px;border:0;border-radius:13px;font-weight:900}.primary{color:#fff;background:var(--green)}.secondary{color:var(--dark);background:var(--mint)}.danger{color:#fff;background:var(--red)}.success{color:#fff;background:var(--success)}.amber{color:#fff;background:var(--amber)}.outline{color:var(--dark);background:#fff;border:1px solid var(--line)}.btn:disabled{cursor:not-allowed;opacity:.5}
-    .form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:.82rem;font-weight:850}.field input,.field textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:#fbfcfc;outline:none}.field textarea{min-height:88px;resize:vertical}.field input:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(11,141,121,.1)}
-    .toggle-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.toggle{display:flex;align-items:center;gap:9px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fbfcfc;font-size:.82rem;font-weight:700}.toggle input{accent-color:var(--green);width:17px;height:17px}
-    .privacy{margin:10px 0 0;color:var(--muted);font-size:.76rem;line-height:1.5}
-    .map-stage{position:relative;width:100%;height:360px;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:radial-gradient(circle at 18% 24%,rgba(10,118,103,.10) 0 5px,transparent 6px),radial-gradient(circle at 76% 68%,rgba(10,118,103,.08) 0 7px,transparent 8px),linear-gradient(23deg,transparent 49%,rgba(255,255,255,.65) 50%,transparent 51%),repeating-linear-gradient(0deg,transparent 0 36px,rgba(7,63,55,.055) 37px 38px),repeating-linear-gradient(90deg,transparent 0 48px,rgba(7,63,55,.05) 49px 50px),linear-gradient(135deg,#f7ead1,#f5f9f6 52%,#dff5ef)}
-    .map-stage:before{content:"";position:absolute;left:-8%;top:48%;width:116%;height:18px;background:rgba(255,255,255,.88);transform:rotate(-10deg);box-shadow:0 0 0 1px rgba(7,63,55,.06)}.map-stage:after{content:"";position:absolute;left:36%;top:-10%;width:16px;height:120%;background:rgba(255,255,255,.72);transform:rotate(14deg);box-shadow:0 0 0 1px rgba(7,63,55,.05)}
-    .map-label{position:absolute;z-index:4;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.9);color:var(--dark);font-size:.72rem;font-weight:850;box-shadow:0 5px 16px rgba(18,58,49,.1)}.map-label.one{left:8%;top:10%}.map-label.two{right:8%;bottom:9%}
-    .route-svg{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none}.route-primary{stroke:var(--green2);stroke-width:4;stroke-dasharray:9 7;stroke-linecap:round}.route-backup{stroke:var(--amber);stroke-width:3;stroke-dasharray:4 7;stroke-linecap:round}
-    .map-marker{position:absolute;z-index:5;transform:translate(-50%,-50%);display:grid;place-items:center;width:34px;height:34px;border:4px solid #fff;border-radius:50%;box-shadow:0 8px 18px rgba(18,58,49,.18);font-size:.8rem;font-weight:900}.map-marker.responder{background:var(--green);color:#fff}.map-marker.specialist{background:var(--amber);color:#fff}.map-marker.user{display:none;background:var(--red);color:#fff}.map-marker.user.show{display:grid}.marker-name{position:absolute;z-index:6;transform:translate(-50%,10px);padding:4px 7px;border-radius:7px;background:#fff;color:var(--dark);font-size:.68rem;font-weight:800;white-space:nowrap;box-shadow:0 4px 12px rgba(18,58,49,.12)}
-    .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;color:var(--muted);font-size:.78rem}.dot{display:inline-block;width:9px;height:9px;margin-right:6px;border-radius:50%}.dot.red{background:var(--red)}.dot.green{background:var(--green)}.dot.amber{background:var(--amber)}
-    .result{display:none;margin-top:20px;border:1px solid rgba(22,133,84,.25);border-radius:24px;overflow:hidden;background:#eefaf3}.result.show{display:block}.result-head{display:flex;justify-content:space-between;gap:12px;padding:18px 20px;color:#fff;background:var(--success)}.result-head strong{display:block}.result-head small{display:block;margin-top:4px;color:rgba(255,255,255,.82)}.pill{align-self:flex-start;padding:7px 10px;border-radius:999px;color:var(--success);background:#fff;font-size:.74rem;font-weight:900;white-space:nowrap}.result-body{padding:20px}
-    .countdown{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;padding:14px 15px;border:1px solid rgba(198,122,20,.25);border-radius:15px;background:var(--amber-bg)}.countdown strong{color:#8b5208}.countdown span{font-size:.82rem;color:var(--muted)}
-    .relay-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.relay-card{padding:17px;border:1px solid var(--line);border-radius:17px;background:#fff}.relay-card.primary-card{border-color:rgba(10,118,103,.3)}.relay-card.backup-card{border-color:rgba(198,122,20,.35)}.relay-label{display:inline-block;margin-bottom:10px;padding:5px 8px;border-radius:999px;background:var(--mint);color:var(--dark);font-size:.7rem;font-weight:900}.backup-card .relay-label{background:var(--amber-bg);color:#8b5208}.relay-card h4{margin:0}.relay-card p{margin:6px 0 0;color:var(--muted);font-size:.82rem;line-height:1.5}.relay-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.mini{padding:10px;border-radius:11px;background:#f7f9f8}.mini span{display:block;color:var(--muted);font-size:.68rem}.mini strong{display:block;margin-top:4px;font-size:.85rem}
-    .explain{margin-top:14px;padding:15px;border:1px solid rgba(43,108,176,.18);border-radius:15px;background:#f1f7fd}.explain strong{display:block;color:#1f4f82}.explain ul{margin:9px 0 0;padding-left:19px;color:var(--muted);font-size:.82rem;line-height:1.6}
-    .guidance{margin-top:14px;padding:15px;border:1px solid rgba(207,64,64,.18);border-radius:15px;background:#fff5f5}.guidance strong{display:block;color:#9a2929}.guidance ul{margin:9px 0 0;padding-left:19px;color:var(--muted);font-size:.82rem;line-height:1.6}
-    .timeline{display:grid;gap:11px;margin:18px 0 0;padding:0;list-style:none}.timeline li{display:flex;gap:10px;color:var(--muted);font-size:.85rem}.check{display:grid;place-items:center;flex:0 0 24px;height:24px;border-radius:50%;color:#fff;background:var(--success);font-size:.72rem;font-weight:900}.check.pending{color:#b86a00;background:#fff7e5}.check.grey{color:#60706b;background:#eef2f0}
-    .proofs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.proof{padding:20px;border:1px solid var(--line);border-radius:18px;background:#fff}.proof b{display:block;margin:8px 0}.proof p{margin:0;color:var(--muted);font-size:.83rem;line-height:1.55}
-    .dashboard{display:grid;grid-template-columns:.72fr 1.28fr;gap:20px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:16px;border-radius:15px;background:#ecfaf6}.stat strong{display:block;color:var(--dark);font-size:1.3rem}.stat span{display:block;margin-top:4px;color:var(--muted);font-size:.76rem}
-    .empty{padding:36px 18px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted);background:#fbfcfc}.request-card{display:none;border:1px solid rgba(207,69,69,.2);border-radius:18px;overflow:hidden}.request-card.show{display:block}.request-head{display:flex;justify-content:space-between;gap:12px;padding:15px 17px;color:var(--red);background:#fff0f0}.request-body{padding:17px}.request-details{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:15px}.detail{padding:11px;border-radius:12px;background:#f7f9f8}.detail span{display:block;color:var(--muted);font-size:.69rem;font-weight:750}.detail strong{display:block;margin-top:4px;font-size:.84rem;word-break:break-word}.access-summary{margin-bottom:15px;padding:14px;border-radius:14px;background:#fffaf1;border:1px solid #eed8ae}.access-summary strong{display:block}.access-summary p{margin:6px 0 0;color:var(--muted);font-size:.82rem;line-height:1.5}
-    footer{display:flex;justify-content:space-between;gap:20px;margin-top:32px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem}
-    .toast{position:fixed;right:18px;bottom:18px;z-index:9999;max-width:min(390px,calc(100% - 36px));padding:14px 16px;border-radius:14px;color:#fff;background:var(--dark);box-shadow:var(--shadow);opacity:0;transform:translateY(14px);pointer-events:none;transition:.22s;font-size:.86rem;line-height:1.45}.toast.show{opacity:1;transform:none}[dir="rtl"] .toast{right:auto;left:18px}[dir="rtl"] .priority{text-align:right}
-    @media(max-width:940px){.hero,.grid,.dashboard{grid-template-columns:1fr}.hero-stats{grid-template-columns:repeat(3,1fr)}.proofs{grid-template-columns:1fr 1fr}}
-    @media(max-width:680px){.app{width:calc(100% - 18px)}header{align-items:flex-start}.brand p{display:none}.hero{padding:26px 20px;border-radius:23px}.hero-stats,.emergency-grid,.priority-grid,.relay-grid,.proofs{grid-template-columns:1fr 1fr}.form,.request-details,.toggle-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.map-stage{height:315px}.countdown{align-items:flex-start;flex-direction:column}footer{flex-direction:column}}
-    @media(max-width:440px){.hero-stats,.emergency-grid,.priority-grid,.relay-grid,.proofs,.stats,.relay-metrics{grid-template-columns:1fr}.nav button{padding:0 10px;font-size:.78rem}}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fffdf8, var(--bg));
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .notice {
+      padding: 9px 16px;
+      text-align: center;
+      color: #ffffff;
+      background: var(--dark);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .app {
+      width: min(1180px, calc(100% - 28px));
+      margin: auto;
+      padding-bottom: 46px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 0 17px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      color: #ffffff;
+      background: linear-gradient(145deg, var(--green2), var(--dark));
+      font-size: 1.35rem;
+      box-shadow: 0 10px 24px rgba(10, 118, 103, 0.22);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .brand p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav button {
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--dark);
+      font-weight: 850;
+    }
+
+    .nav button.active {
+      color: #ffffff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 28px;
+      align-items: center;
+      padding: clamp(28px, 5vw, 54px);
+      border-radius: 30px;
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--dark), var(--green2));
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -110px;
+      bottom: -165px;
+      width: 420px;
+      height: 320px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      margin: 18px 0 12px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.84);
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.11);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 1.35rem;
+    }
+
+    .hero-stat span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 0.82rem;
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+
+    .section h3 {
+      margin: 0;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .section > p {
+      margin: 6px 0 14px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      padding: clamp(19px, 3vw, 28px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: 0 12px 34px rgba(24, 58, 49, 0.08);
+    }
+
+    .step {
+      display: inline-grid;
+      place-items: center;
+      min-width: 34px;
+      height: 34px;
+      margin-bottom: 12px;
+      padding: 0 9px;
+      border-radius: 10px;
+      color: var(--dark);
+      background: var(--mint);
+      font-weight: 900;
+    }
+
+    .card h4 {
+      margin: 0 0 7px;
+      font-size: 1.12rem;
+    }
+
+    .copy {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .choice {
+      min-height: 98px;
+      padding: 14px 10px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #ffffff;
+      color: var(--ink);
+      transition: 0.18s;
+    }
+
+    .choice:hover {
+      transform: translateY(-2px);
+      border-color: var(--green);
+    }
+
+    .choice.selected {
+      border-color: var(--green);
+      background: #ecfaf6;
+      box-shadow: inset 0 0 0 2px rgba(11, 141, 121, 0.12);
+    }
+
+    .choice span {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 1.5rem;
+    }
+
+    .choice strong {
+      font-size: 0.82rem;
+    }
+
+    .priority-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .priority {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #ffffff;
+      text-align: left;
+    }
+
+    .priority.selected {
+      border-color: var(--red);
+      background: #fff1f1;
+    }
+
+    .priority strong {
+      display: block;
+    }
+
+    .priority small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .location-box {
+      padding: 16px;
+      border: 1px dashed #deb875;
+      border-radius: 16px;
+      background: #fffaf1;
+    }
+
+    .location-status {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .location-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #f7ecd8;
+    }
+
+    .location-status strong {
+      display: block;
+    }
+
+    .location-status small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      word-break: break-word;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .btn {
+      min-height: 45px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 13px;
+      font-weight: 900;
+    }
+
+    .primary {
+      color: #ffffff;
+      background: var(--green);
+    }
+
+    .secondary {
+      color: var(--dark);
+      background: var(--mint);
+    }
+
+    .danger {
+      color: #ffffff;
+      background: var(--red);
+    }
+
+    .success {
+      color: #ffffff;
+      background: var(--success);
+    }
+
+    .amber {
+      color: #ffffff;
+      background: var(--amber);
+    }
+
+    .outline {
+      color: var(--dark);
+      background: #ffffff;
+      border: 1px solid var(--line);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfcfc;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(11, 141, 121, 0.1);
+    }
+
+    .toggle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfcfc;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .toggle input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--green);
+    }
+
+    .privacy {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.5;
+    }
+
+    .map-stage {
+      position: relative;
+      width: 100%;
+      height: 360px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 18% 24%, rgba(10, 118, 103, 0.1) 0 5px, transparent 6px),
+        radial-gradient(circle at 76% 68%, rgba(10, 118, 103, 0.08) 0 7px, transparent 8px),
+        linear-gradient(23deg, transparent 49%, rgba(255, 255, 255, 0.65) 50%, transparent 51%),
+        repeating-linear-gradient(0deg, transparent 0 36px, rgba(7, 63, 55, 0.055) 37px 38px),
+        repeating-linear-gradient(90deg, transparent 0 48px, rgba(7, 63, 55, 0.05) 49px 50px),
+        linear-gradient(135deg, #f7ead1, #f5f9f6 52%, #dff5ef);
+    }
+
+    .map-stage::before {
+      content: "";
+      position: absolute;
+      left: -8%;
+      top: 48%;
+      width: 116%;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.88);
+      transform: rotate(-10deg);
+      box-shadow: 0 0 0 1px rgba(7, 63, 55, 0.06);
+    }
+
+    .map-stage::after {
+      content: "";
+      position: absolute;
+      left: 36%;
+      top: -10%;
+      width: 16px;
+      height: 120%;
+      background: rgba(255, 255, 255, 0.72);
+      transform: rotate(14deg);
+      box-shadow: 0 0 0 1px rgba(7, 63, 55, 0.05);
+    }
+
+    .map-label {
+      position: absolute;
+      z-index: 4;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--dark);
+      font-size: 0.72rem;
+      font-weight: 850;
+      box-shadow: 0 5px 16px rgba(18, 58, 49, 0.1);
+    }
+
+    .map-label.one {
+      left: 8%;
+      top: 10%;
+    }
+
+    .map-label.two {
+      right: 8%;
+      bottom: 9%;
+    }
+
+    .route-svg {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .route-primary {
+      stroke: var(--green2);
+      stroke-width: 4;
+      stroke-dasharray: 9 7;
+      stroke-linecap: round;
+    }
+
+    .route-backup {
+      stroke: var(--amber);
+      stroke-width: 3;
+      stroke-dasharray: 4 7;
+      stroke-linecap: round;
+    }
+
+    .map-marker {
+      position: absolute;
+      z-index: 5;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 4px solid #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 8px 18px rgba(18, 58, 49, 0.18);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .map-marker.responder {
+      background: var(--green);
+      color: #ffffff;
+    }
+
+    .map-marker.specialist {
+      background: var(--amber);
+      color: #ffffff;
+    }
+
+    .map-marker.user {
+      display: none;
+      background: var(--red);
+      color: #ffffff;
+    }
+
+    .map-marker.user.show {
+      display: grid;
+    }
+
+    .marker-name {
+      position: absolute;
+      z-index: 6;
+      transform: translate(-50%, 10px);
+      padding: 4px 7px;
+      border-radius: 7px;
+      background: #ffffff;
+      color: var(--dark);
+      font-size: 0.68rem;
+      font-weight: 800;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(18, 58, 49, 0.12);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      margin-right: 6px;
+      border-radius: 50%;
+    }
+
+    .dot.red {
+      background: var(--red);
+    }
+
+    .dot.green {
+      background: var(--green);
+    }
+
+    .dot.amber {
+      background: var(--amber);
+    }
+
+    .result {
+      display: none;
+      margin-top: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(22, 133, 84, 0.25);
+      border-radius: 24px;
+      background: #eefaf3;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .result-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px;
+      color: #ffffff;
+      background: var(--success);
+    }
+
+    .result-head strong {
+      display: block;
+    }
+
+    .result-head small {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .pill {
+      align-self: flex-start;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--success);
+      background: #ffffff;
+      font-size: 0.74rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .result-body {
+      padding: 20px;
+    }
+
+    .countdown {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding: 14px 15px;
+      border: 1px solid rgba(198, 122, 20, 0.25);
+      border-radius: 15px;
+      background: var(--amber-bg);
+    }
+
+    .countdown strong {
+      display: block;
+      color: #8b5208;
+    }
+
+    .countdown span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .relay-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .relay-card {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #ffffff;
+    }
+
+    .relay-card.primary-card {
+      border-color: rgba(10, 118, 103, 0.3);
+    }
+
+    .relay-card.backup-card {
+      border-color: rgba(198, 122, 20, 0.35);
+    }
+
+    .relay-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--dark);
+      font-size: 0.7rem;
+      font-weight: 900;
+    }
+
+    .backup-card .relay-label {
+      background: var(--amber-bg);
+      color: #8b5208;
+    }
+
+    .relay-card h4 {
+      margin: 0;
+    }
+
+    .relay-card p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .relay-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .mini {
+      padding: 10px;
+      border-radius: 11px;
+      background: #f7f9f8;
+    }
+
+    .mini span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.68rem;
+    }
+
+    .mini strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.85rem;
+    }
+
+    .explain {
+      margin-top: 14px;
+      padding: 15px;
+      border: 1px solid rgba(43, 108, 176, 0.18);
+      border-radius: 15px;
+      background: #f1f7fd;
+    }
+
+    .explain strong {
+      display: block;
+      color: #1f4f82;
+    }
+
+    .explain ul,
+    .guidance ul {
+      margin: 9px 0 0;
+      padding-left: 19px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .guidance {
+      margin-top: 14px;
+      padding: 15px;
+      border: 1px solid rgba(207, 64, 64, 0.18);
+      border-radius: 15px;
+      background: #fff5f5;
+    }
+
+    .guidance strong {
+      display: block;
+      color: #9a2929;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 11px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timeline li {
+      display: flex;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .check {
+      display: grid;
+      place-items: center;
+      flex: 0 0 24px;
+      height: 24px;
+      border-radius: 50%;
+      color: #ffffff;
+      background: var(--success);
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .check.pending {
+      color: #b86a00;
+      background: #fff7e5;
+    }
+
+    .check.grey {
+      color: #60706b;
+      background: #eef2f0;
+    }
+
+    .proofs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .proof {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #ffffff;
+    }
+
+    .proof b {
+      display: block;
+      margin: 8px 0;
+    }
+
+    .proof p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.83rem;
+      line-height: 1.55;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 0.72fr 1.28fr;
+      gap: 20px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 15px;
+      background: #ecfaf6;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--dark);
+      font-size: 1.3rem;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .empty {
+      padding: 36px 18px;
+      border: 1px dashed var(--line);
+      border-radius: 16px;
+      text-align: center;
+      color: var(--muted);
+      background: #fbfcfc;
+    }
+
+    .request-card {
+      display: none;
+      overflow: hidden;
+      border: 1px solid rgba(207, 69, 69, 0.2);
+      border-radius: 18px;
+    }
+
+    .request-card.show {
+      display: block;
+    }
+
+    .request-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 17px;
+      color: var(--red);
+      background: #fff0f0;
+    }
+
+    .request-body {
+      padding: 17px;
+    }
+
+    .request-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .detail {
+      padding: 11px;
+      border-radius: 12px;
+      background: #f7f9f8;
+    }
+
+    .detail span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.69rem;
+      font-weight: 750;
+    }
+
+    .detail strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.84rem;
+      word-break: break-word;
+    }
+
+    .access-summary {
+      margin-bottom: 15px;
+      padding: 14px;
+      border: 1px solid #eed8ae;
+      border-radius: 14px;
+      background: #fffaf1;
+    }
+
+    .access-summary strong {
+      display: block;
+    }
+
+    .access-summary p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      max-width: min(390px, calc(100% - 36px));
+      padding: 14px 16px;
+      border-radius: 14px;
+      color: #ffffff;
+      background: var(--dark);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(14px);
+      pointer-events: none;
+      transition: 0.22s;
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    [dir="rtl"] .toast {
+      right: auto;
+      left: 18px;
+    }
+
+    [dir="rtl"] .priority {
+      text-align: right;
+    }
+
+    @media (max-width: 940px) {
+      .hero,
+      .grid,
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .proofs {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .app {
+        width: calc(100% - 18px);
+      }
+
+      header {
+        align-items: flex-start;
+      }
+
+      .brand p {
+        display: none;
+      }
+
+      .hero {
+        padding: 26px 20px;
+        border-radius: 23px;
+      }
+
+      .hero-stats,
+      .emergency-grid,
+      .priority-grid,
+      .relay-grid,
+      .proofs {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .form,
+      .request-details,
+      .toggle-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .map-stage {
+        height: 315px;
+      }
+
+      .countdown {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .hero-stats,
+      .emergency-grid,
+      .priority-grid,
+      .relay-grid,
+      .proofs,
+      .stats,
+      .relay-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .nav button {
+        padding: 0 10px;
+        font-size: 0.78rem;
+      }
+    }
   </style>
+
 </head>
+
 <body>
-  <div class="notice" data-en="Hackathon prototype only — not an official emergency service. In a real emergency, contact the UAE's official emergency services." data-ar="نموذج أولي للهاكاثون فقط — وليس خدمة طوارئ رسمية. في حالة طوارئ حقيقية، تواصل مع خدمات الطوارئ الرسمية في دولة الإمارات."></div>
+  <div
+    class="notice"
+    data-en="Hackathon prototype only — not an official emergency service. In a real emergency, contact the UAE's official emergency services."
+    data-ar="نموذج أولي للهاكاثون فقط — وليس خدمة طوارئ رسمية. في حالة طوارئ حقيقية، تواصل مع خدمات الطوارئ الرسمية في دولة الإمارات."
+  ></div>
+
   <div class="app">
     <header>
       <div class="brand">
         <div class="logo">⌖</div>
-        <div><h1>DesertReach</h1><p data-en="The Rural Rescue Relay" data-ar="سلسلة الإنقاذ الريفية"></p></div>
-      </div>
-      <div class="nav">
-        <button id="residentTab" class="active" data-en="Resident" data-ar="المقيم"></button>
-        <button id="responderTab" data-en="Responder" data-ar="المستجيب"></button>
-        <button id="languageButton">العربية</button>
-        <button id="resetButton" data-en="Reset demo" data-ar="إعادة التجربة"></button>
-      </div>
-    </header>
 
-    <main>
-      <section id="residentView" class="view active">
-        <section class="hero">
-          <div>
-            <span class="eyebrow" data-en="Tatweer Challenge 2 · Al Qua'a" data-ar="تحدي تطوير 2 · القوع"></span>
-            <h2 data-en="The nearest suitable helper now. The right specialist next." data-ar="أقرب مساعد مناسب الآن، والمتخصص الصحيح بعده."></h2>
-            <p data-en="DesertReach builds a rescue relay for remote rural emergencies: a nearby trained community responder, a specialist backup, clear access information, and automatic escalation if nobody answers." data-ar="ينشئ DesertReach سلسلة إنقاذ للطوارئ الريفية البعيدة: مستجيب مجتمعي مدرب قريب، ودعم متخصص، ومعلومات وصول واضحة، وتصعيد تلقائي إذا لم يستجب أحد."></p>
-          </div>
-          <div class="hero-stats">
-            <div class="hero-stat"><strong data-en="Skills + distance" data-ar="المهارات + المسافة"></strong><span data-en="explainable matching" data-ar="مطابقة قابلة للتفسير"></span></div>
-            <div class="hero-stat"><strong data-en="2-level relay" data-ar="سلسلة من مستويين"></strong><span data-en="community + specialist" data-ar="المجتمع + المتخصص"></span></div>
-            <div class="hero-stat"><strong data-en="Low-signal ready" data-ar="جاهز لضعف الشبكة"></strong><span data-en="copyable rescue packet" data-ar="حزمة إنقاذ قابلة للنسخ"></span></div>
-          </div>
-        </section>
-
-        <section class="section">
-          <h3 data-en="Create a rural rescue relay" data-ar="أنشئ سلسلة إنقاذ ريفية"></h3>
-          <p data-en="Complete the four short steps. The responder network is simulated for this hackathon prototype." data-ar="أكمل الخطوات الأربع القصيرة. شبكة المستجيبين تجريبية في هذا النموذج."></p>
-          <div class="grid">
-            <article class="card">
-              <span class="step">1</span><h4 data-en="What happened?" data-ar="ماذا حدث؟"></h4><p class="copy" data-en="Choose the emergency so DesertReach can match the right skills and equipment." data-ar="اختر نوع الطوارئ حتى يطابق DesertReach المهارات والمعدات المناسبة."></p>
-              <div class="emergency-grid">
-                <button class="choice emergency" data-type="Medical"><span>🩺</span><strong data-en="Medical" data-ar="حالة طبية"></strong></button>
-                <button class="choice emergency" data-type="Vehicle"><span>🚙</span><strong data-en="Vehicle or sand" data-ar="مركبة أو رمال"></strong></button>
-                <button class="choice emergency" data-type="Fire"><span>🔥</span><strong data-en="Fire or smoke" data-ar="حريق أو دخان"></strong></button>
-                <button class="choice emergency" data-type="Lost"><span>🧭</span><strong data-en="Lost person" data-ar="شخص مفقود"></strong></button>
-                <button class="choice emergency" data-type="Farm"><span>🐪</span><strong data-en="Farm or animal" data-ar="مزرعة أو حيوان"></strong></button>
-                <button class="choice emergency" data-type="Safety"><span>🛡️</span><strong data-en="Personal safety" data-ar="السلامة الشخصية"></strong></button>
-              </div>
-            </article>
-
-            <article class="card">
-              <span class="step">2</span><h4 data-en="How urgent and where?" data-ar="ما مدى الاستعجال وأين؟"></h4><p class="copy" data-en="Priority changes the escalation speed. Use the safe demo location when testing." data-ar="تؤثر الأولوية على سرعة التصعيد. استخدم الموقع التجريبي الآمن للاختبار."></p>
-              <div class="priority-grid">
-                <button class="priority" data-priority="Critical"><strong data-en="Critical" data-ar="حرجة"></strong><small data-en="Life may be at risk" data-ar="قد تكون الحياة في خطر"></small></button>
-                <button class="priority" data-priority="Urgent"><strong data-en="Urgent" data-ar="عاجلة"></strong><small data-en="Help needed quickly" data-ar="المساعدة مطلوبة بسرعة"></small></button>
-                <button class="priority" data-priority="Assistance"><strong data-en="Assistance" data-ar="مساعدة"></strong><small data-en="Important, not life-threatening" data-ar="مهمة وليست مهددة للحياة"></small></button>
-              </div>
-              <div class="location-box">
-                <div class="location-status"><div class="location-icon">📍</div><div><strong id="locationTitle" data-en="Location not shared yet" data-ar="لم تتم مشاركة الموقع بعد"></strong><small id="locationDetails" data-en="Your coordinates will appear here." data-ar="ستظهر الإحداثيات هنا."></small></div></div>
-                <div class="row"><button id="useLocationButton" class="btn primary" data-en="Use my location" data-ar="استخدم موقعي"></button><button id="demoLocationButton" class="btn secondary" data-en="Use Al Qua'a demo location" data-ar="استخدم موقع القوع التجريبي"></button></div>
-              </div>
-            </article>
-
-            <article class="card">
-              <span class="step">3</span><h4 data-en="Rural Access Card" data-ar="بطاقة الوصول الريفية"></h4><p class="copy" data-en="Coordinates are not enough in farms and desert areas. Tell the responder how to reach you safely." data-ar="الإحداثيات وحدها لا تكفي في المزارع والمناطق الصحراوية. أخبر المستجيب بكيفية الوصول بأمان."></p>
-              <div class="form">
-                <div class="field full"><label data-en="Nearest landmark" data-ar="أقرب معلم"></label><input id="landmark" data-placeholder-en="e.g. water tower or mosque" data-placeholder-ar="مثال: برج مياه أو مسجد"></div>
-                <div class="field"><label data-en="Farm / gate number" data-ar="رقم المزرعة / البوابة"></label><input id="gateNumber" data-placeholder-en="e.g. Gate 3" data-placeholder-ar="مثال: البوابة 3"></div>
-                <div class="field"><label data-en="Vehicle / building description" data-ar="وصف المركبة / المبنى"></label><input id="visualDescription" data-placeholder-en="e.g. white pickup" data-placeholder-ar="مثال: مركبة بيضاء"></div>
-              </div>
-              <div class="toggle-grid">
-                <label class="toggle"><input id="needs4x4" type="checkbox"><span data-en="4×4 vehicle required" data-ar="مركبة دفع رباعي مطلوبة"></span></label>
-                <label class="toggle"><input id="gateLocked" type="checkbox"><span data-en="Gate may be locked" data-ar="قد تكون البوابة مغلقة"></span></label>
-                <label class="toggle"><input id="animalsNearby" type="checkbox"><span data-en="Animals nearby" data-ar="حيوانات قريبة"></span></label>
-                <label class="toggle"><input id="hazardNearby" type="checkbox"><span data-en="Machinery / fire hazard" data-ar="خطر آلات / حريق"></span></label>
-              </div>
-            </article>
-
-            <article class="card">
-              <span class="step">4</span><h4 data-en="Who needs help?" data-ar="من يحتاج المساعدة؟"></h4><p class="copy" data-en="Only the emergency, priority and location are required. The rest helps the responder prepare." data-ar="نوع الطوارئ والأولوية والموقع فقط مطلوبة. الباقي يساعد المستجيب على الاستعداد."></p>
-              <div class="form">
-                <div class="field"><label data-en="Name" data-ar="الاسم"></label><input id="residentName" data-placeholder-en="e.g. Fatima" data-placeholder-ar="مثال: فاطمة"></div>
-                <div class="field"><label data-en="Phone" data-ar="الهاتف"></label><input id="residentPhone" data-placeholder-en="Optional for prototype" data-placeholder-ar="اختياري في النموذج"></div>
-                <div class="field full"><label data-en="What should the responder know?" data-ar="ماذا يجب أن يعرف المستجيب؟"></label><textarea id="residentNotes" data-placeholder-en="Short note about the situation" data-placeholder-ar="ملاحظة قصيرة عن الحالة"></textarea></div>
-              </div>
-              <button id="requestHelpButton" class="btn danger" style="width:100%;margin-top:16px;min-height:58px" disabled data-en="Create Rescue Relay" data-ar="أنشئ سلسلة الإنقاذ"></button>
-              <p class="privacy" data-en="Prototype data stays in this browser. No real authority is contacted." data-ar="تبقى بيانات النموذج في هذا المتصفح. لا يتم الاتصال بأي جهة حقيقية."></p>
-            </article>
-
-            <article class="card" style="grid-column:1/-1">
-              <span class="step">⌖</span><h4 data-en="Rural coordination map" data-ar="خريطة التنسيق الريفي"></h4><p class="copy" data-en="Green markers are community responders. Amber markers are specialist units. Lines appear after matching." data-ar="العلامات الخضراء مستجيبون مجتمعيون، والبرتقالية وحدات متخصصة. تظهر الخطوط بعد المطابقة."></p>
-              <div id="mapStage" class="map-stage"><span class="map-label one" data-en="Al Qua'a rural zone" data-ar="منطقة القوع الريفية"></span><span class="map-label two" data-en="Farm access roads" data-ar="طرق الوصول للمزارع"></span><svg class="route-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><line id="primaryRoute" class="route-primary" x1="0" y1="0" x2="0" y2="0" style="display:none"></line><line id="backupRoute" class="route-backup" x1="0" y1="0" x2="0" y2="0" style="display:none"></line></svg><div id="userMarker" class="map-marker user">YOU</div></div>
-              <div class="legend"><span><i class="dot red"></i><span data-en="Resident" data-ar="المقيم"></span></span><span><i class="dot green"></i><span data-en="Community responder" data-ar="مستجيب مجتمعي"></span></span><span><i class="dot amber"></i><span data-en="Specialist backup" data-ar="دعم متخصص"></span></span></div>
-            </article>
-          </div>
-
-          <section id="resultPanel" class="result">
-            <div class="result-head"><div><strong data-en="Rescue Relay created" data-ar="تم إنشاء سلسلة الإنقاذ"></strong><small id="resultRequestId"></small></div><span id="residentStatusPill" class="pill"></span></div>
-            <div class="result-body">
-              <div id="countdownBox" class="countdown"><div><strong id="countdownTitle"></strong><span id="countdownCopy"></span></div><button id="triggerBackupButton" class="btn amber" data-en="Demo: trigger backup now" data-ar="تجربة: فعّل الدعم الآن"></button></div>
-              <div class="relay-grid">
-                <article class="relay-card primary-card"><span class="relay-label" data-en="LEVEL 1 · NEARBY HELP" data-ar="المستوى 1 · مساعدة قريبة"></span><h4 id="primaryName">—</h4><p id="primaryRole">—</p><div class="relay-metrics"><div class="mini"><span data-en="Distance" data-ar="المسافة"></span><strong id="primaryDistance">—</strong></div><div class="mini"><span data-en="ETA" data-ar="الوصول المتوقع"></span><strong id="primaryEta">—</strong></div></div></article>
-                <article class="relay-card backup-card"><span class="relay-label" data-en="LEVEL 2 · SPECIALIST BACKUP" data-ar="المستوى 2 · دعم متخصص"></span><h4 id="backupName">—</h4><p id="backupRole">—</p><div class="relay-metrics"><div class="mini"><span data-en="Distance" data-ar="المسافة"></span><strong id="backupDistance">—</strong></div><div class="mini"><span data-en="ETA" data-ar="الوصول المتوقع"></span><strong id="backupEta">—</strong></div></div></article>
-              </div>
-              <div class="explain"><strong data-en="Why this match?" data-ar="لماذا تم اختيار هذا المستجيب؟"></strong><ul id="matchReasons"></ul></div>
-              <div class="guidance"><strong data-en="First-minute safety guidance" data-ar="إرشادات السلامة للدقائق الأولى"></strong><ul id="safetyGuidance"></ul></div>
-              <ul id="residentTimeline" class="timeline"></ul>
-              <div class="row" style="margin-top:17px"><button id="openResponderButton" class="btn primary" data-en="Open responder dashboard" data-ar="افتح لوحة المستجيب"></button><button id="copyFallbackButton" class="btn secondary" data-en="Copy low-signal rescue packet" data-ar="انسخ حزمة الإنقاذ لضعف الشبكة"></button></div>
-            </div>
-          </section>
-        </section>
-
-        <section class="section">
-          <h3 data-en="Why DesertReach is different" data-ar="لماذا يختلف DesertReach"></h3><p data-en="It does not send the same alert to everyone. It creates a layered, explainable response plan for a rural setting." data-ar="لا يرسل التنبيه نفسه للجميع، بل ينشئ خطة استجابة متدرجة وقابلة للتفسير لبيئة ريفية."></p>
-          <div class="proofs">
-            <article class="proof">🧠<b data-en="Nearest suitable, not just nearest" data-ar="الأقرب المناسب، وليس الأقرب فقط"></b><p data-en="Matches skills, equipment, terrain access, availability and distance." data-ar="يطابق المهارات والمعدات والوصول للتضاريس والتوفر والمسافة."></p></article>
-            <article class="proof">🔗<b data-en="Two-level Rescue Relay" data-ar="سلسلة إنقاذ من مستويين"></b><p data-en="Activates nearby community help while a specialist backup is prepared." data-ar="يفعّل مساعدة مجتمعية قريبة بينما يتم تجهيز دعم متخصص."></p></article>
-            <article class="proof">🐪<b data-en="Rural Access Card" data-ar="بطاقة الوصول الريفية"></b><p data-en="Adds landmarks, farm gates, 4×4 needs, animals and hazards." data-ar="تضيف المعالم وبوابات المزارع والحاجة للدفع الرباعي والحيوانات والمخاطر."></p></article>
-            <article class="proof">📶<b data-en="Low-signal rescue packet" data-ar="حزمة إنقاذ لضعف الشبكة"></b><p data-en="Creates a compact message that can be copied into SMS or WhatsApp." data-ar="تنشئ رسالة مختصرة يمكن نسخها إلى رسالة نصية أو واتساب."></p></article>
-          </div>
-        </section>
-      </section>
-
-      <section id="responderView" class="view">
-        <section class="hero">
-          <div><span class="eyebrow" data-en="Responder Command View" data-ar="واجهة قيادة المستجيب"></span><h2 data-en="Accept, travel, arrive — or escalate without wasting time." data-ar="اقبل وتحرك وصل، أو صعّد دون إضاعة الوقت."></h2><p data-en="The responder sees the emergency, why they were matched, the rural access card and the specialist backup before moving." data-ar="يرى المستجيب نوع الطوارئ وسبب اختياره وبطاقة الوصول الريفية والدعم المتخصص قبل التحرك."></p></div>
-          <div class="hero-stats"><div class="hero-stat"><strong id="dashboardOpenRequests">0</strong><span data-en="active request" data-ar="طلب نشط"></span></div><div class="hero-stat"><strong id="dashboardActiveResponder">—</strong><span data-en="active responder" data-ar="المستجيب النشط"></span></div><div class="hero-stat"><strong id="dashboardPriority">—</strong><span data-en="priority" data-ar="الأولوية"></span></div></div>
-        </section>
-        <section class="section dashboard">
-          <article class="card"><h4 data-en="Community response network" data-ar="شبكة الاستجابة المجتمعية"></h4><p class="copy" data-en="A simulated network of trained volunteers and specialist units." data-ar="شبكة تجريبية من المتطوعين المدربين والوحدات المتخصصة."></p><div class="stats"><div class="stat"><strong>4</strong><span data-en="community responders" data-ar="مستجيبون مجتمعيون"></span></div><div class="stat"><strong>3</strong><span data-en="specialist units" data-ar="وحدات متخصصة"></span></div><div class="stat"><strong>6</strong><span data-en="emergency categories" data-ar="فئات طوارئ"></span></div><div class="stat"><strong>2</strong><span data-en="response levels" data-ar="مستويان للاستجابة"></span></div></div></article>
-          <article class="card"><h4 data-en="Incoming rescue request" data-ar="طلب إنقاذ وارد"></h4><p class="copy" data-en="Create a request in the Resident view to populate this dashboard." data-ar="أنشئ طلباً في واجهة المقيم لعرضه هنا."></p><div id="requestEmpty" class="empty" data-en="No active request yet." data-ar="لا يوجد طلب نشط بعد."></div>
-            <div id="requestCard" class="request-card"><div class="request-head"><strong id="dashboardEmergencyType">—</strong><small id="dashboardRequestTime">—</small></div><div class="request-body">
-              <div class="request-details"><div class="detail"><span data-en="Request ID" data-ar="رقم الطلب"></span><strong id="dashboardRequestId">—</strong></div><div class="detail"><span data-en="Resident" data-ar="المقيم"></span><strong id="dashboardResidentName">—</strong></div><div class="detail"><span data-en="Coordinates" data-ar="الإحداثيات"></span><strong id="dashboardCoordinates">—</strong></div><div class="detail"><span data-en="Priority" data-ar="الأولوية"></span><strong id="dashboardPriorityDetail">—</strong></div><div class="detail"><span data-en="Active responder" data-ar="المستجيب النشط"></span><strong id="dashboardResponder">—</strong></div><div class="detail"><span data-en="What happened?" data-ar="ماذا حدث؟"></span><strong id="dashboardNotes">—</strong></div></div>
-              <div class="access-summary"><strong data-en="Rural Access Card" data-ar="بطاقة الوصول الريفية"></strong><p id="dashboardAccess">—</p></div>
-              <div class="explain" style="margin-top:0;margin-bottom:15px"><strong data-en="Why you were matched" data-ar="لماذا تم اختيارك"></strong><ul id="dashboardReasons"></ul></div>
-              <div class="row"><button id="acceptRequestButton" class="btn success" data-en="Accept request" data-ar="قبول الطلب"></button><button id="onWayButton" class="btn primary" data-en="Mark on the way" data-ar="في الطريق"></button><button id="arrivedButton" class="btn secondary" data-en="Mark arrived" data-ar="تم الوصول"></button><button id="declineButton" class="btn amber" data-en="Decline & alert backup" data-ar="رفض وتنبيه الدعم"></button><button id="backToResidentButton" class="btn outline" data-en="Back to resident" data-ar="العودة للمقيم"></button></div>
-            </div></div>
-          </article>
-        </section>
-      </section>
-    </main>
-    <footer><span data-en="Built for Tatweer Hackathon 2026 · Challenge 2" data-ar="تم بناؤه لهاكاثون تطوير 2026 · التحدي 2"></span><span data-en="All responders, ETAs and integrations are simulated for demonstration." data-ar="جميع المستجيبين وأوقات الوصول والتكاملات تجريبية للعرض."></span></footer>
+```
+    <div>
+      <h1>DesertReach</h1>
+      <p data-en="The Rural Rescue Relay" data-ar="سلسلة الإنقاذ الريفية"></p>
+    </div>
   </div>
+
+  <div class="nav">
+    <button id="residentTab" type="button" class="active" data-en="Resident" data-ar="المقيم"></button>
+    <button id="responderTab" type="button" data-en="Responder" data-ar="المستجيب"></button>
+    <button id="languageButton" type="button">العربية</button>
+    <button id="resetButton" type="button" data-en="Reset demo" data-ar="إعادة التجربة"></button>
+  </div>
+</header>
+
+<main>
+  <section id="residentView" class="view active">
+    <section class="hero">
+      <div>
+        <span
+          class="eyebrow"
+          data-en="Tatweer Challenge 2 · Al Qua'a"
+          data-ar="تحدي تطوير 2 · القوع"
+        ></span>
+
+        <h2
+          data-en="The nearest suitable helper now. The right specialist next."
+          data-ar="أقرب مساعد مناسب الآن، والمتخصص الصحيح بعده."
+        ></h2>
+
+        <p
+          data-en="DesertReach builds a rescue relay for remote rural emergencies: a nearby trained community responder, a specialist backup, clear access information, and automatic escalation if nobody answers."
+          data-ar="ينشئ DesertReach سلسلة إنقاذ للطوارئ الريفية البعيدة: مستجيب مجتمعي مدرب قريب، ودعم متخصص، ومعلومات وصول واضحة، وتصعيد تلقائي إذا لم يستجب أحد."
+        ></p>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong data-en="Skills + distance" data-ar="المهارات + المسافة"></strong>
+          <span data-en="explainable matching" data-ar="مطابقة قابلة للتفسير"></span>
+        </div>
+
+        <div class="hero-stat">
+          <strong data-en="2-level relay" data-ar="سلسلة من مستويين"></strong>
+          <span data-en="community + specialist" data-ar="المجتمع + المتخصص"></span>
+        </div>
+
+        <div class="hero-stat">
+          <strong data-en="Low-signal ready" data-ar="جاهز لضعف الشبكة"></strong>
+          <span data-en="copyable rescue packet" data-ar="حزمة إنقاذ قابلة للنسخ"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3 data-en="Create a rural rescue relay" data-ar="أنشئ سلسلة إنقاذ ريفية"></h3>
+
+      <p
+        data-en="Complete the four short steps. The responder network is simulated for this hackathon prototype."
+        data-ar="أكمل الخطوات الأربع القصيرة. شبكة المستجيبين تجريبية في هذا النموذج."
+      ></p>
+
+      <div class="grid">
+        <article class="card">
+          <span class="step">1</span>
+
+          <h4 data-en="What happened?" data-ar="ماذا حدث؟"></h4>
+
+          <p
+            class="copy"
+            data-en="Choose the emergency so DesertReach can match the right skills and equipment."
+            data-ar="اختر نوع الطوارئ حتى يطابق DesertReach المهارات والمعدات المناسبة."
+          ></p>
+
+          <div class="emergency-grid">
+            <button type="button" class="choice emergency" data-type="Medical">
+              <span>🩺</span>
+              <strong data-en="Medical" data-ar="حالة طبية"></strong>
+            </button>
+
+            <button type="button" class="choice emergency" data-type="Vehicle">
+              <span>🚙</span>
+              <strong data-en="Vehicle or sand" data-ar="مركبة أو رمال"></strong>
+            </button>
+
+            <button type="button" class="choice emergency" data-type="Fire">
+              <span>🔥</span>
+              <strong data-en="Fire or smoke" data-ar="حريق أو دخان"></strong>
+            </button>
+
+            <button type="button" class="choice emergency" data-type="Lost">
+              <span>🧭</span>
+              <strong data-en="Lost person" data-ar="شخص مفقود"></strong>
+            </button>
+
+            <button type="button" class="choice emergency" data-type="Farm">
+              <span>🐪</span>
+              <strong data-en="Farm or animal" data-ar="مزرعة أو حيوان"></strong>
+            </button>
+
+            <button type="button" class="choice emergency" data-type="Safety">
+              <span>🛡️</span>
+              <strong data-en="Personal safety" data-ar="السلامة الشخصية"></strong>
+            </button>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="step">2</span>
+
+          <h4 data-en="How urgent and where?" data-ar="ما مدى الاستعجال وأين؟"></h4>
+
+          <p
+            class="copy"
+            data-en="Priority changes the escalation speed. Use the safe demo location when testing."
+            data-ar="تؤثر الأولوية على سرعة التصعيد. استخدم الموقع التجريبي الآمن للاختبار."
+          ></p>
+
+          <div class="priority-grid">
+            <button type="button" class="priority" data-priority="Critical">
+              <strong data-en="Critical" data-ar="حرجة"></strong>
+              <small data-en="Life may be at risk" data-ar="قد تكون الحياة في خطر"></small>
+            </button>
+
+            <button type="button" class="priority" data-priority="Urgent">
+              <strong data-en="Urgent" data-ar="عاجلة"></strong>
+              <small data-en="Help needed quickly" data-ar="المساعدة مطلوبة بسرعة"></small>
+            </button>
+
+            <button type="button" class="priority" data-priority="Assistance">
+              <strong data-en="Assistance" data-ar="مساعدة"></strong>
+              <small
+                data-en="Important, not life-threatening"
+                data-ar="مهمة وليست مهددة للحياة"
+              ></small>
+            </button>
+          </div>
+
+          <div class="location-box">
+            <div class="location-status">
+              <div class="location-icon">📍</div>
+
+              <div>
+                <strong
+                  id="locationTitle"
+                  data-en="Location not shared yet"
+                  data-ar="لم تتم مشاركة الموقع بعد"
+                ></strong>
+
+                <small
+                  id="locationDetails"
+                  data-en="Your coordinates will appear here."
+                  data-ar="ستظهر الإحداثيات هنا."
+                ></small>
+              </div>
+            </div>
+
+            <div class="row">
+              <button
+                id="useLocationButton"
+                type="button"
+                class="btn primary"
+                data-en="Use my location"
+                data-ar="استخدم موقعي"
+              ></button>
+
+              <button
+                id="demoLocationButton"
+                type="button"
+                class="btn secondary"
+                data-en="Use Al Qua'a demo location"
+                data-ar="استخدم موقع القوع التجريبي"
+              ></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="step">3</span>
+
+          <h4 data-en="Rural Access Card" data-ar="بطاقة الوصول الريفية"></h4>
+
+          <p
+            class="copy"
+            data-en="Coordinates are not enough in farms and desert areas. Tell the responder how to reach you safely."
+            data-ar="الإحداثيات وحدها لا تكفي في المزارع والمناطق الصحراوية. أخبر المستجيب بكيفية الوصول بأمان."
+          ></p>
+
+          <div class="form">
+            <div class="field full">
+              <label data-en="Nearest landmark" data-ar="أقرب معلم"></label>
+
+              <input
+                id="landmark"
+                data-placeholder-en="e.g. water tower or mosque"
+                data-placeholder-ar="مثال: برج مياه أو مسجد"
+              >
+            </div>
+
+            <div class="field">
+              <label data-en="Farm / gate number" data-ar="رقم المزرعة / البوابة"></label>
+
+              <input
+                id="gateNumber"
+                data-placeholder-en="e.g. Gate 3"
+                data-placeholder-ar="مثال: البوابة 3"
+              >
+            </div>
+
+            <div class="field">
+              <label
+                data-en="Vehicle / building description"
+                data-ar="وصف المركبة / المبنى"
+              ></label>
+
+              <input
+                id="visualDescription"
+                data-placeholder-en="e.g. white pickup"
+                data-placeholder-ar="مثال: مركبة بيضاء"
+              >
+            </div>
+          </div>
+
+          <div class="toggle-grid">
+            <label class="toggle">
+              <input id="needs4x4" type="checkbox">
+              <span data-en="4×4 vehicle required" data-ar="مركبة دفع رباعي مطلوبة"></span>
+            </label>
+
+            <label class="toggle">
+              <input id="gateLocked" type="checkbox">
+              <span data-en="Gate may be locked" data-ar="قد تكون البوابة مغلقة"></span>
+            </label>
+
+            <label class="toggle">
+              <input id="animalsNearby" type="checkbox">
+              <span data-en="Animals nearby" data-ar="حيوانات قريبة"></span>
+            </label>
+
+            <label class="toggle">
+              <input id="hazardNearby" type="checkbox">
+              <span data-en="Machinery / fire hazard" data-ar="خطر آلات / حريق"></span>
+            </label>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="step">4</span>
+
+          <h4 data-en="Who needs help?" data-ar="من يحتاج المساعدة؟"></h4>
+
+          <p
+            class="copy"
+            data-en="Only the emergency, priority and location are required. The rest helps the responder prepare."
+            data-ar="نوع الطوارئ والأولوية والموقع فقط مطلوبة. الباقي يساعد المستجيب على الاستعداد."
+          ></p>
+
+          <div class="form">
+            <div class="field">
+              <label data-en="Name" data-ar="الاسم"></label>
+
+              <input
+                id="residentName"
+                data-placeholder-en="e.g. Fatima"
+                data-placeholder-ar="مثال: فاطمة"
+              >
+            </div>
+
+            <div class="field">
+              <label data-en="Phone" data-ar="الهاتف"></label>
+
+              <input
+                id="residentPhone"
+                data-placeholder-en="Optional for prototype"
+                data-placeholder-ar="اختياري في النموذج"
+              >
+            </div>
+
+            <div class="field full">
+              <label
+                data-en="What should the responder know?"
+                data-ar="ماذا يجب أن يعرف المستجيب؟"
+              ></label>
+
+              <textarea
+                id="residentNotes"
+                data-placeholder-en="Short note about the situation"
+                data-placeholder-ar="ملاحظة قصيرة عن الحالة"
+              ></textarea>
+            </div>
+          </div>
+
+          <button
+            id="requestHelpButton"
+            type="button"
+            class="btn danger"
+            style="width:100%;margin-top:16px;min-height:58px"
+            disabled
+            data-en="Create Rescue Relay"
+            data-ar="أنشئ سلسلة الإنقاذ"
+          ></button>
+
+          <p
+            class="privacy"
+            data-en="Prototype data stays in this browser. No real authority is contacted."
+            data-ar="تبقى بيانات النموذج في هذا المتصفح. لا يتم الاتصال بأي جهة حقيقية."
+          ></p>
+        </article>
+
+        <article class="card" style="grid-column:1/-1">
+          <span class="step">⌖</span>
+
+          <h4 data-en="Rural coordination map" data-ar="خريطة التنسيق الريفي"></h4>
+
+          <p
+            class="copy"
+            data-en="Green markers are community responders. Amber markers are specialist units. Lines appear after matching."
+            data-ar="العلامات الخضراء مستجيبون مجتمعيون، والبرتقالية وحدات متخصصة. تظهر الخطوط بعد المطابقة."
+          ></p>
+
+          <div id="mapStage" class="map-stage">
+            <span
+              class="map-label one"
+              data-en="Al Qua'a rural zone"
+              data-ar="منطقة القوع الريفية"
+            ></span>
+
+            <span
+              class="map-label two"
+              data-en="Farm access roads"
+              data-ar="طرق الوصول للمزارع"
+            ></span>
+
+            <svg class="route-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <line
+                id="primaryRoute"
+                class="route-primary"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="0"
+                style="display:none"
+              ></line>
+
+              <line
+                id="backupRoute"
+                class="route-backup"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="0"
+                style="display:none"
+              ></line>
+            </svg>
+
+            <div id="userMarker" class="map-marker user">YOU</div>
+          </div>
+
+          <div class="legend">
+            <span>
+              <i class="dot red"></i>
+              <span data-en="Resident" data-ar="المقيم"></span>
+            </span>
+
+            <span>
+              <i class="dot green"></i>
+              <span data-en="Community responder" data-ar="مستجيب مجتمعي"></span>
+            </span>
+
+            <span>
+              <i class="dot amber"></i>
+              <span data-en="Specialist backup" data-ar="دعم متخصص"></span>
+            </span>
+          </div>
+        </article>
+      </div>
+
+      <section id="resultPanel" class="result">
+        <div class="result-head">
+          <div>
+            <strong data-en="Rescue Relay created" data-ar="تم إنشاء سلسلة الإنقاذ"></strong>
+            <small id="resultRequestId"></small>
+          </div>
+
+          <span id="residentStatusPill" class="pill"></span>
+        </div>
+
+        <div class="result-body">
+          <div id="countdownBox" class="countdown">
+            <div>
+              <strong id="countdownTitle"></strong>
+              <span id="countdownCopy"></span>
+            </div>
+
+            <button
+              id="triggerBackupButton"
+              type="button"
+              class="btn amber"
+              data-en="Demo: trigger backup now"
+              data-ar="تجربة: فعّل الدعم الآن"
+            ></button>
+          </div>
+
+          <div class="relay-grid">
+            <article class="relay-card primary-card">
+              <span
+                class="relay-label"
+                data-en="LEVEL 1 · NEARBY HELP"
+                data-ar="المستوى 1 · مساعدة قريبة"
+              ></span>
+
+              <h4 id="primaryName">—</h4>
+              <p id="primaryRole">—</p>
+
+              <div class="relay-metrics">
+                <div class="mini">
+                  <span data-en="Distance" data-ar="المسافة"></span>
+                  <strong id="primaryDistance">—</strong>
+                </div>
+
+                <div class="mini">
+                  <span data-en="ETA" data-ar="الوصول المتوقع"></span>
+                  <strong id="primaryEta">—</strong>
+                </div>
+              </div>
+            </article>
+
+            <article class="relay-card backup-card">
+              <span
+                class="relay-label"
+                data-en="LEVEL 2 · SPECIALIST BACKUP"
+                data-ar="المستوى 2 · دعم متخصص"
+              ></span>
+
+              <h4 id="backupName">—</h4>
+              <p id="backupRole">—</p>
+
+              <div class="relay-metrics">
+                <div class="mini">
+                  <span data-en="Distance" data-ar="المسافة"></span>
+                  <strong id="backupDistance">—</strong>
+                </div>
+
+                <div class="mini">
+                  <span data-en="ETA" data-ar="الوصول المتوقع"></span>
+                  <strong id="backupEta">—</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="explain">
+            <strong data-en="Why this match?" data-ar="لماذا تم اختيار هذا المستجيب؟"></strong>
+            <ul id="matchReasons"></ul>
+          </div>
+
+          <div class="guidance">
+            <strong
+              data-en="First-minute safety guidance"
+              data-ar="إرشادات السلامة للدقائق الأولى"
+            ></strong>
+
+            <ul id="safetyGuidance"></ul>
+          </div>
+
+          <ul id="residentTimeline" class="timeline"></ul>
+
+          <div class="row" style="margin-top:17px">
+            <button
+              id="openResponderButton"
+              type="button"
+              class="btn primary"
+              data-en="Open responder dashboard"
+              data-ar="افتح لوحة المستجيب"
+            ></button>
+
+            <button
+              id="copyFallbackButton"
+              type="button"
+              class="btn secondary"
+              data-en="Copy low-signal rescue packet"
+              data-ar="انسخ حزمة الإنقاذ لضعف الشبكة"
+            ></button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="section">
+      <h3 data-en="Why DesertReach is different" data-ar="لماذا يختلف DesertReach"></h3>
+
+      <p
+        data-en="It does not send the same alert to everyone. It creates a layered, explainable response plan for a rural setting."
+        data-ar="لا يرسل التنبيه نفسه للجميع، بل ينشئ خطة استجابة متدرجة وقابلة للتفسير لبيئة ريفية."
+      ></p>
+
+      <div class="proofs">
+        <article class="proof">
+          🧠
+          <b
+            data-en="Nearest suitable, not just nearest"
+            data-ar="الأقرب المناسب، وليس الأقرب فقط"
+          ></b>
+
+          <p
+            data-en="Matches skills, equipment, terrain access, availability and distance."
+            data-ar="يطابق المهارات والمعدات والوصول للتضاريس والتوفر والمسافة."
+          ></p>
+        </article>
+
+        <article class="proof">
+          🔗
+          <b data-en="Two-level Rescue Relay" data-ar="سلسلة إنقاذ من مستويين"></b>
+
+          <p
+            data-en="Activates nearby community help while a specialist backup is prepared."
+            data-ar="يفعّل مساعدة مجتمعية قريبة بينما يتم تجهيز دعم متخصص."
+          ></p>
+        </article>
+
+        <article class="proof">
+          🐪
+          <b data-en="Rural Access Card" data-ar="بطاقة الوصول الريفية"></b>
+
+          <p
+            data-en="Adds landmarks, farm gates, 4×4 needs, animals and hazards."
+            data-ar="تضيف المعالم وبوابات المزارع والحاجة للدفع الرباعي والحيوانات والمخاطر."
+          ></p>
+        </article>
+
+        <article class="proof">
+          📶
+          <b data-en="Low-signal rescue packet" data-ar="حزمة إنقاذ لضعف الشبكة"></b>
+
+          <p
+            data-en="Creates a compact message that can be copied into SMS or WhatsApp."
+            data-ar="تنشئ رسالة مختصرة يمكن نسخها إلى رسالة نصية أو واتساب."
+          ></p>
+        </article>
+      </div>
+    </section>
+  </section>
+
+  <section id="responderView" class="view">
+    <section class="hero">
+      <div>
+        <span
+          class="eyebrow"
+          data-en="Responder Command View"
+          data-ar="واجهة قيادة المستجيب"
+        ></span>
+
+        <h2
+          data-en="Accept, travel, arrive — or escalate without wasting time."
+          data-ar="اقبل وتحرك وصل، أو صعّد دون إضاعة الوقت."
+        ></h2>
+
+        <p
+          data-en="The responder sees the emergency, why they were matched, the rural access card and the specialist backup before moving."
+          data-ar="يرى المستجيب نوع الطوارئ وسبب اختياره وبطاقة الوصول الريفية والدعم المتخصص قبل التحرك."
+        ></p>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong id="dashboardOpenRequests">0</strong>
+          <span data-en="active request" data-ar="طلب نشط"></span>
+        </div>
+
+        <div class="hero-stat">
+          <strong id="dashboardActiveResponder">—</strong>
+          <span data-en="active responder" data-ar="المستجيب النشط"></span>
+        </div>
+
+        <div class="hero-stat">
+          <strong id="dashboardPriority">—</strong>
+          <span data-en="priority" data-ar="الأولوية"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dashboard">
+      <article class="card">
+        <h4
+          data-en="Community response network"
+          data-ar="شبكة الاستجابة المجتمعية"
+        ></h4>
+
+        <p
+          class="copy"
+          data-en="A simulated network of trained volunteers and specialist units."
+          data-ar="شبكة تجريبية من المتطوعين المدربين والوحدات المتخصصة."
+        ></p>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>4</strong>
+            <span data-en="community responders" data-ar="مستجيبون مجتمعيون"></span>
+          </div>
+
+          <div class="stat">
+            <strong>3</strong>
+            <span data-en="specialist units" data-ar="وحدات متخصصة"></span>
+          </div>
+
+          <div class="stat">
+            <strong>6</strong>
+            <span data-en="emergency categories" data-ar="فئات طوارئ"></span>
+          </div>
+
+          <div class="stat">
+            <strong>2</strong>
+            <span data-en="response levels" data-ar="مستويان للاستجابة"></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h4 data-en="Incoming rescue request" data-ar="طلب إنقاذ وارد"></h4>
+
+        <p
+          class="copy"
+          data-en="Create a request in the Resident view to populate this dashboard."
+          data-ar="أنشئ طلباً في واجهة المقيم لعرضه هنا."
+        ></p>
+
+        <div
+          id="requestEmpty"
+          class="empty"
+          data-en="No active request yet."
+          data-ar="لا يوجد طلب نشط بعد."
+        ></div>
+
+        <div id="requestCard" class="request-card">
+          <div class="request-head">
+            <strong id="dashboardEmergencyType">—</strong>
+            <small id="dashboardRequestTime">—</small>
+          </div>
+
+          <div class="request-body">
+            <div class="request-details">
+              <div class="detail">
+                <span data-en="Request ID" data-ar="رقم الطلب"></span>
+                <strong id="dashboardRequestId">—</strong>
+              </div>
+
+              <div class="detail">
+                <span data-en="Resident" data-ar="المقيم"></span>
+                <strong id="dashboardResidentName">—</strong>
+              </div>
+
+              <div class="detail">
+                <span data-en="Coordinates" data-ar="الإحداثيات"></span>
+                <strong id="dashboardCoordinates">—</strong>
+              </div>
+
+              <div class="detail">
+                <span data-en="Priority" data-ar="الأولوية"></span>
+                <strong id="dashboardPriorityDetail">—</strong>
+              </div>
+
+              <div class="detail">
+                <span data-en="Active responder" data-ar="المستجيب النشط"></span>
+                <strong id="dashboardResponder">—</strong>
+              </div>
+
+              <div class="detail">
+                <span data-en="What happened?" data-ar="ماذا حدث؟"></span>
+                <strong id="dashboardNotes">—</strong>
+              </div>
+            </div>
+
+            <div class="access-summary">
+              <strong data-en="Rural Access Card" data-ar="بطاقة الوصول الريفية"></strong>
+              <p id="dashboardAccess">—</p>
+            </div>
+
+            <div class="explain" style="margin-top:0;margin-bottom:15px">
+              <strong data-en="Why you were matched" data-ar="لماذا تم اختيارك"></strong>
+              <ul id="dashboardReasons"></ul>
+            </div>
+
+            <div class="row">
+              <button
+                id="acceptRequestButton"
+                type="button"
+                class="btn success"
+                data-en="Accept request"
+                data-ar="قبول الطلب"
+              ></button>
+
+              <button
+                id="onWayButton"
+                type="button"
+                class="btn primary"
+                data-en="Mark on the way"
+                data-ar="في الطريق"
+              ></button>
+
+              <button
+                id="arrivedButton"
+                type="button"
+                class="btn secondary"
+                data-en="Mark arrived"
+                data-ar="تم الوصول"
+              ></button>
+
+              <button
+                id="declineButton"
+                type="button"
+                class="btn amber"
+                data-en="Decline & alert backup"
+                data-ar="رفض وتنبيه الدعم"
+              ></button>
+
+              <button
+                id="backToResidentButton"
+                type="button"
+                class="btn outline"
+                data-en="Back to resident"
+                data-ar="العودة للمقيم"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </section>
+</main>
+
+<footer>
+  <span
+    data-en="Built for Tatweer Hackathon 2026 · Challenge 2"
+    data-ar="تم بناؤه لهاكاثون تطوير 2026 · التحدي 2"
+  ></span>
+
+  <span
+    data-en="All responders, ETAs and integrations are simulated for demonstration."
+    data-ar="جميع المستجيبين وأوقات الوصول والتكاملات تجريبية للعرض."
+  ></span>
+</footer>
+```
+
+  </div>
+
   <div id="toast" class="toast"></div>
 
   <script>
-    const DEMO_CENTER={lat:23.2335,lng:55.0493};
-    const responders=[
-      {id:"C-101",name:"Aisha",kind:"community",roleEn:"Community First Responder",roleAr:"مستجيبة أولية مجتمعية",lat:23.2448,lng:55.0614,types:["Medical","Lost","Safety","Fire","Farm"],skillsEn:["First aid","Desert navigation"],skillsAr:["إسعافات أولية","ملاحة صحراوية"],equipmentEn:["First-aid kit","Radio","4×4"],equipmentAr:["حقيبة إسعافات","جهاز لاسلكي","دفع رباعي"],fourByFour:true},
-      {id:"C-102",name:"Saeed",kind:"community",roleEn:"Farm Safety Volunteer",roleAr:"متطوع سلامة المزارع",lat:23.2514,lng:55.0312,types:["Farm","Lost","Fire","Vehicle"],skillsEn:["Animal handling","Farm safety"],skillsAr:["التعامل مع الحيوانات","سلامة المزارع"],equipmentEn:["4×4","Tow rope","Extinguisher"],equipmentAr:["دفع رباعي","حبل سحب","طفاية"],fourByFour:true},
-      {id:"C-103",name:"Mariam",kind:"community",roleEn:"Roadside Community Helper",roleAr:"مساعدة مجتمعية على الطريق",lat:23.2119,lng:55.0667,types:["Vehicle","Lost","Safety"],skillsEn:["Roadside safety","Desert driving"],skillsAr:["سلامة الطرق","قيادة صحراوية"],equipmentEn:["4×4","Tow rope","Warning lights"],equipmentAr:["دفع رباعي","حبل سحب","أضواء تحذير"],fourByFour:true},
-      {id:"C-104",name:"Noor",kind:"community",roleEn:"Search & Welfare Volunteer",roleAr:"متطوعة بحث ورعاية",lat:23.2252,lng:55.0254,types:["Lost","Safety","Medical"],skillsEn:["Search coordination","First aid"],skillsAr:["تنسيق البحث","إسعافات أولية"],equipmentEn:["Radio","Water","Torch"],equipmentAr:["جهاز لاسلكي","مياه","مصباح"],fourByFour:false},
-      {id:"S-201",name:"Omar Unit",kind:"specialist",roleEn:"Clinic Support Vehicle",roleAr:"مركبة دعم العيادة",lat:23.2207,lng:55.0404,types:["Medical","Fire","Safety"],skillsEn:["Clinical support","Advanced first aid"],skillsAr:["دعم طبي","إسعافات متقدمة"],equipmentEn:["Medical kit","Oxygen","4×4"],equipmentAr:["معدات طبية","أكسجين","دفع رباعي"],fourByFour:true},
-      {id:"S-202",name:"Hamad Unit",kind:"specialist",roleEn:"Fire & Hazard Support",roleAr:"دعم الحريق والمخاطر",lat:23.2583,lng:55.0741,types:["Fire","Farm","Vehicle"],skillsEn:["Fire response","Hazard control"],skillsAr:["استجابة للحريق","السيطرة على المخاطر"],equipmentEn:["Extinguishers","Protective equipment","4×4"],equipmentAr:["طفايات","معدات حماية","دفع رباعي"],fourByFour:true},
-      {id:"S-203",name:"Rashid Unit",kind:"specialist",roleEn:"Roadside Recovery Team",roleAr:"فريق إنقاذ على الطريق",lat:23.2054,lng:55.0337,types:["Vehicle","Lost","Farm"],skillsEn:["Vehicle recovery","Desert access"],skillsAr:["إنقاذ المركبات","الوصول الصحراوي"],equipmentEn:["Recovery winch","Tow kit","4×4"],equipmentAr:["ونش إنقاذ","عدة سحب","دفع رباعي"],fourByFour:true}
+    const DEMO_CENTER = {
+      lat: 23.2335,
+      lng: 55.0493
+    };
+
+    const responders = [
+      {
+        id: "C-101",
+        name: "Aisha",
+        kind: "community",
+        roleEn: "Community First Responder",
+        roleAr: "مستجيبة أولية مجتمعية",
+        lat: 23.2448,
+        lng: 55.0614,
+        types: ["Medical", "Lost", "Safety", "Fire", "Farm"],
+        skillsEn: ["First aid", "Desert navigation"],
+        skillsAr: ["إسعافات أولية", "ملاحة صحراوية"],
+        equipmentEn: ["First-aid kit", "Radio", "4×4"],
+        equipmentAr: ["حقيبة إسعافات", "جهاز لاسلكي", "دفع رباعي"],
+        fourByFour: true
+      },
+      {
+        id: "C-102",
+        name: "Saeed",
+        kind: "community",
+        roleEn: "Farm Safety Volunteer",
+        roleAr: "متطوع سلامة المزارع",
+        lat: 23.2514,
+        lng: 55.0312,
+        types: ["Farm", "Lost", "Fire", "Vehicle"],
+        skillsEn: ["Animal handling", "Farm safety"],
+        skillsAr: ["التعامل مع الحيوانات", "سلامة المزارع"],
+        equipmentEn: ["4×4", "Tow rope", "Extinguisher"],
+        equipmentAr: ["دفع رباعي", "حبل سحب", "طفاية"],
+        fourByFour: true
+      },
+      {
+        id: "C-103",
+        name: "Mariam",
+        kind: "community",
+        roleEn: "Roadside Community Helper",
+        roleAr: "مساعدة مجتمعية على الطريق",
+        lat: 23.2119,
+        lng: 55.0667,
+        types: ["Vehicle", "Lost", "Safety"],
+        skillsEn: ["Roadside safety", "Desert driving"],
+        skillsAr: ["سلامة الطرق", "قيادة صحراوية"],
+        equipmentEn: ["4×4", "Tow rope", "Warning lights"],
+        equipmentAr: ["دفع رباعي", "حبل سحب", "أضواء تحذير"],
+        fourByFour: true
+      },
+      {
+        id: "C-104",
+        name: "Noor",
+        kind: "community",
+        roleEn: "Search & Welfare Volunteer",
+        roleAr: "متطوعة بحث ورعاية",
+        lat: 23.2252,
+        lng: 55.0254,
+        types: ["Lost", "Safety", "Medical"],
+        skillsEn: ["Search coordination", "First aid"],
+        skillsAr: ["تنسيق البحث", "إسعافات أولية"],
+        equipmentEn: ["Radio", "Water", "Torch"],
+        equipmentAr: ["جهاز لاسلكي", "مياه", "مصباح"],
+        fourByFour: false
+      },
+      {
+        id: "S-201",
+        name: "Omar Unit",
+        kind: "specialist",
+        roleEn: "Clinic Support Vehicle",
+        roleAr: "مركبة دعم العيادة",
+        lat: 23.2207,
+        lng: 55.0404,
+        types: ["Medical", "Fire", "Safety"],
+        skillsEn: ["Clinical support", "Advanced first aid"],
+        skillsAr: ["دعم طبي", "إسعافات متقدمة"],
+        equipmentEn: ["Medical kit", "Oxygen", "4×4"],
+        equipmentAr: ["معدات طبية", "أكسجين", "دفع رباعي"],
+        fourByFour: true
+      },
+      {
+        id: "S-202",
+        name: "Hamad Unit",
+        kind: "specialist",
+        roleEn: "Fire & Hazard Support",
+        roleAr: "دعم الحريق والمخاطر",
+        lat: 23.2583,
+        lng: 55.0741,
+        types: ["Fire", "Farm", "Vehicle"],
+        skillsEn: ["Fire response", "Hazard control"],
+        skillsAr: ["استجابة للحريق", "السيطرة على المخاطر"],
+        equipmentEn: ["Extinguishers", "Protective equipment", "4×4"],
+        equipmentAr: ["طفايات", "معدات حماية", "دفع رباعي"],
+        fourByFour: true
+      },
+      {
+        id: "S-203",
+        name: "Rashid Unit",
+        kind: "specialist",
+        roleEn: "Roadside Recovery Team",
+        roleAr: "فريق إنقاذ على الطريق",
+        lat: 23.2054,
+        lng: 55.0337,
+        types: ["Vehicle", "Lost", "Farm"],
+        skillsEn: ["Vehicle recovery", "Desert access"],
+        skillsAr: ["إنقاذ المركبات", "الوصول الصحراوي"],
+        equipmentEn: ["Recovery winch", "Tow kit", "4×4"],
+        equipmentAr: ["ونش إنقاذ", "عدة سحب", "دفع رباعي"],
+        fourByFour: true
+      }
     ];
-    const emergencyNames={Medical:{en:"Medical emergency",ar:"حالة طبية"},Vehicle:{en:"Vehicle or sand recovery",ar:"إنقاذ مركبة أو رمال"},Fire:{en:"Fire or smoke",ar:"حريق أو دخان"},Lost:{en:"Lost person",ar:"شخص مفقود"},Farm:{en:"Farm or animal incident",ar:"حادث مزرعة أو حيوان"},Safety:{en:"Personal safety",ar:"السلامة الشخصية"}};
-    const priorityNames={Critical:{en:"Critical",ar:"حرجة"},Urgent:{en:"Urgent",ar:"عاجلة"},Assistance:{en:"Assistance",ar:"مساعدة"}};
-    const guidance={
-      Medical:{en:["Stay with the injured person if it is safe.","Do not move them unless the area is dangerous.","Keep the phone nearby and follow official emergency advice."],ar:["ابقَ مع المصاب إذا كان المكان آمناً.","لا تحركه إلا إذا كان المكان خطراً.","أبقِ الهاتف قريباً واتبع تعليمات الطوارئ الرسمية."]},
-      Vehicle:{en:["Turn on hazard lights if possible.","Stay away from moving traffic and unstable sand.","Tell the responder the vehicle colour and exact landmark."],ar:["شغّل أضواء التحذير إن أمكن.","ابتعد عن حركة المرور والرمال غير المستقرة.","أخبر المستجيب بلون المركبة وأقرب معلم."]},
-      Fire:{en:["Move away from smoke and flames.","Warn nearby people and animals.","Do not return for belongings."],ar:["ابتعد عن الدخان والنيران.","حذّر الأشخاص والحيوانات القريبة.","لا تعد لجلب الأغراض."]},
-      Lost:{en:["Stay in one safe visible place when possible.","Conserve phone battery and water.","Describe nearby tracks, lights or landmarks."],ar:["ابقَ في مكان آمن وواضح إن أمكن.","حافظ على بطارية الهاتف والمياه.","صف المسارات أو الأضواء أو المعالم القريبة."]},
-      Farm:{en:["Keep a safe distance from frightened animals.","Switch off machinery only if safe to do so.","Tell the responder about gates and loose animals."],ar:["ابتعد بأمان عن الحيوانات الخائفة.","أوقف الآلات فقط إذا كان ذلك آمناً.","أخبر المستجيب عن البوابات والحيوانات الطليقة."]},
-      Safety:{en:["Move to a visible safer place if possible.","Avoid confronting the threat.","Keep the phone quiet and nearby."],ar:["انتقل إلى مكان أكثر أماناً ووضوحاً إن أمكن.","تجنب مواجهة الخطر.","أبقِ الهاتف صامتاً وقريباً."]}
+
+    const emergencyNames = {
+      Medical: {
+        en: "Medical emergency",
+        ar: "حالة طبية"
+      },
+      Vehicle: {
+        en: "Vehicle or sand recovery",
+        ar: "إنقاذ مركبة أو رمال"
+      },
+      Fire: {
+        en: "Fire or smoke",
+        ar: "حريق أو دخان"
+      },
+      Lost: {
+        en: "Lost person",
+        ar: "شخص مفقود"
+      },
+      Farm: {
+        en: "Farm or animal incident",
+        ar: "حادث مزرعة أو حيوان"
+      },
+      Safety: {
+        en: "Personal safety",
+        ar: "السلامة الشخصية"
+      }
     };
-    const ui={
-      en:{waiting:"Waiting for primary responder",backupAlerted:"Backup specialist alerted",accepted:"Responder accepted",onWay:"Responder on the way",arrived:"Responder arrived",countdownTitle:"Automatic backup escalation",countdownCopy:"If the nearby responder does not accept, the specialist backup is alerted automatically.",locationReady:"Location ready",demoReady:"Al Qua'a demo location ready",selectEmergency:"Choose an emergency type.",selectPriority:"Choose an urgency level.",shareLocation:"Share a location before creating the relay.",locating:"Requesting location permission…",locationSuccess:"Your device location is ready.",locationError:"Location could not be read. Use the demo location to continue.",demoSuccess:"Al Qua'a demo location selected.",requestCreated:"Rescue Relay created.",backupTriggered:"Specialist backup has been alerted.",requestAccepted:"The active responder accepted the request.",statusOnWay:"Responder marked on the way.",statusArrived:"Responder marked arrived.",copied:"Low-signal rescue packet copied.",copyError:"Copy the rescue packet manually.",noName:"Anonymous resident",noNotes:"No extra note provided",minutes:"min",requestId:"Request ID",notProvided:"Not provided",yes:"Yes",no:"No"},
-      ar:{waiting:"بانتظار المستجيب القريب",backupAlerted:"تم تنبيه الدعم المتخصص",accepted:"وافق المستجيب",onWay:"المستجيب في الطريق",arrived:"وصل المستجيب",countdownTitle:"تصعيد تلقائي للدعم",countdownCopy:"إذا لم يقبل المستجيب القريب، يتم تنبيه الدعم المتخصص تلقائياً.",locationReady:"الموقع جاهز",demoReady:"موقع القوع التجريبي جاهز",selectEmergency:"اختر نوع الطوارئ.",selectPriority:"اختر مستوى الاستعجال.",shareLocation:"شارك موقعاً قبل إنشاء السلسلة.",locating:"جارٍ طلب إذن الموقع…",locationSuccess:"موقع جهازك جاهز.",locationError:"تعذر قراءة الموقع. استخدم الموقع التجريبي للمتابعة.",demoSuccess:"تم اختيار موقع القوع التجريبي.",requestCreated:"تم إنشاء سلسلة الإنقاذ.",backupTriggered:"تم تنبيه الدعم المتخصص.",requestAccepted:"وافق المستجيب النشط على الطلب.",statusOnWay:"تم تحديد أن المستجيب في الطريق.",statusArrived:"تم تحديد وصول المستجيب.",copied:"تم نسخ حزمة الإنقاذ.",copyError:"انسخ حزمة الإنقاذ يدوياً.",noName:"مقيم مجهول",noNotes:"لا توجد ملاحظة إضافية",minutes:"دقيقة",requestId:"رقم الطلب",notProvided:"غير متوفر",yes:"نعم",no:"لا"}
+
+    const priorityNames = {
+      Critical: {
+        en: "Critical",
+        ar: "حرجة"
+      },
+      Urgent: {
+        en: "Urgent",
+        ar: "عاجلة"
+      },
+      Assistance: {
+        en: "Assistance",
+        ar: "مساعدة"
+      }
     };
-    let language="en",selectedEmergency=null,selectedPriority=null,residentLocation=null,currentRequest=null,countdownTimer=null,countdownRemaining=45;
-    const $=id=>document.getElementById(id);
-    const el={residentTab:$("residentTab"),responderTab:$("responderTab"),languageButton:$("languageButton"),resetButton:$("resetButton"),residentView:$("residentView"),responderView:$("responderView"),emergency:[...document.querySelectorAll(".emergency")],priority:[...document.querySelectorAll(".priority")],useLocationButton:$("useLocationButton"),demoLocationButton:$("demoLocationButton"),locationTitle:$("locationTitle"),locationDetails:$("locationDetails"),landmark:$("landmark"),gateNumber:$("gateNumber"),visualDescription:$("visualDescription"),needs4x4:$("needs4x4"),gateLocked:$("gateLocked"),animalsNearby:$("animalsNearby"),hazardNearby:$("hazardNearby"),residentName:$("residentName"),residentPhone:$("residentPhone"),residentNotes:$("residentNotes"),requestHelpButton:$("requestHelpButton"),mapStage:$("mapStage"),userMarker:$("userMarker"),primaryRoute:$("primaryRoute"),backupRoute:$("backupRoute"),resultPanel:$("resultPanel"),resultRequestId:$("resultRequestId"),residentStatusPill:$("residentStatusPill"),countdownBox:$("countdownBox"),countdownTitle:$("countdownTitle"),countdownCopy:$("countdownCopy"),triggerBackupButton:$("triggerBackupButton"),primaryName:$("primaryName"),primaryRole:$("primaryRole"),primaryDistance:$("primaryDistance"),primaryEta:$("primaryEta"),backupName:$("backupName"),backupRole:$("backupRole"),backupDistance:$("backupDistance"),backupEta:$("backupEta"),matchReasons:$("matchReasons"),safetyGuidance:$("safetyGuidance"),residentTimeline:$("residentTimeline"),openResponderButton:$("openResponderButton"),copyFallbackButton:$("copyFallbackButton"),requestEmpty:$("requestEmpty"),requestCard:$("requestCard"),dashboardOpenRequests:$("dashboardOpenRequests"),dashboardActiveResponder:$("dashboardActiveResponder"),dashboardPriority:$("dashboardPriority"),dashboardEmergencyType:$("dashboardEmergencyType"),dashboardRequestTime:$("dashboardRequestTime"),dashboardRequestId:$("dashboardRequestId"),dashboardResidentName:$("dashboardResidentName"),dashboardCoordinates:$("dashboardCoordinates"),dashboardPriorityDetail:$("dashboardPriorityDetail"),dashboardResponder:$("dashboardResponder"),dashboardNotes:$("dashboardNotes"),dashboardAccess:$("dashboardAccess"),dashboardReasons:$("dashboardReasons"),acceptRequestButton:$("acceptRequestButton"),onWayButton:$("onWayButton"),arrivedButton:$("arrivedButton"),declineButton:$("declineButton"),backToResidentButton:$("backToResidentButton"),toast:$("toast")};
-    const tr=k=>ui[language][k];
-    function applyLanguage(){document.documentElement.lang=language;document.documentElement.dir=language==="ar"?"rtl":"ltr";el.languageButton.textContent=language==="en"?"العربية":"English";document.querySelectorAll("[data-en][data-ar]").forEach(n=>n.textContent=n.getAttribute("data-"+language));document.querySelectorAll("[data-placeholder-en][data-placeholder-ar]").forEach(n=>n.placeholder=n.getAttribute("data-placeholder-"+language));if(residentLocation)updateLocationText();if(currentRequest)renderRequest()}
-    function showToast(m){el.toast.textContent=m;el.toast.classList.add("show");clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>el.toast.classList.remove("show"),2800)}
-    function switchView(v){const resident=v==="resident";el.residentView.classList.toggle("active",resident);el.responderView.classList.toggle("active",!resident);el.residentTab.classList.toggle("active",resident);el.responderTab.classList.toggle("active",!resident);window.scrollTo({top:0,behavior:"smooth"})}
-    const rad=v=>v*Math.PI/180;
-    function distance(lat1,lng1,lat2,lng2){const R=6371,dLat=rad(lat2-lat1),dLng=rad(lng2-lng1);const a=Math.sin(dLat/2)**2+Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))}
-    function mapPosition(lat,lng){return{x:Math.max(7,Math.min(93,50+(lng-DEMO_CENTER.lng)*1200)),y:Math.max(7,Math.min(93,50-(lat-DEMO_CENTER.lat)*1200))}}
-    function initMap(){responders.forEach((r,i)=>{const p=mapPosition(r.lat,r.lng),m=document.createElement("div"),label=document.createElement("div");m.className="map-marker "+(r.kind==="specialist"?"specialist":"responder");m.style.left=p.x+"%";m.style.top=p.y+"%";m.textContent=r.kind==="specialist"?"S":String(i+1);m.title=r.name+" — "+r.roleEn;label.className="marker-name";label.style.left=p.x+"%";label.style.top=p.y+"%";label.textContent=r.name;el.mapStage.appendChild(m);el.mapStage.appendChild(label)})}
-    function setLocation(lat,lng,isDemo){residentLocation={lat,lng,isDemo};updateLocationText();const p=mapPosition(lat,lng);el.userMarker.style.left=p.x+"%";el.userMarker.style.top=p.y+"%";el.userMarker.classList.add("show");updateSubmit()}
-    function updateLocationText(){el.locationTitle.textContent=residentLocation.isDemo?tr("demoReady"):tr("locationReady");el.locationDetails.textContent=residentLocation.lat.toFixed(5)+", "+residentLocation.lng.toFixed(5)}
-    function updateSubmit(){el.requestHelpButton.disabled=!(selectedEmergency&&selectedPriority&&residentLocation)}
-    function scoreResponder(r,kind){let score=100;if(!r.types.includes(selectedEmergency))return-9999;const km=distance(residentLocation.lat,residentLocation.lng,r.lat,r.lng);score-=km*4;if(kind==="primary"&&r.kind==="community")score+=25;if(kind==="backup"&&r.kind==="specialist")score+=35;if(el.needs4x4.checked){score+=r.fourByFour?28:-120}if(selectedPriority==="Critical"&&r.kind==="specialist")score+=8;return score}
-    function matchRelay(){const primary=responders.filter(r=>r.kind==="community").map(r=>({...r,distanceKm:distance(residentLocation.lat,residentLocation.lng,r.lat,r.lng),score:scoreResponder(r,"primary")})).sort((a,b)=>b.score-a.score)[0];let backup=responders.filter(r=>r.kind==="specialist").map(r=>({...r,distanceKm:distance(residentLocation.lat,residentLocation.lng,r.lat,r.lng),score:scoreResponder(r,"backup")})).sort((a,b)=>b.score-a.score)[0];if(!backup||backup.score<-500){backup=responders.filter(r=>r.id!==primary.id&&r.types.includes(selectedEmergency)).map(r=>({...r,distanceKm:distance(residentLocation.lat,residentLocation.lng,r.lat,r.lng),score:scoreResponder(r,"backup")})).sort((a,b)=>b.score-a.score)[0]}return{primary,backup}}
-    const eta=(km,r)=>Math.max(4,Math.round(km/(r.fourByFour?45:32)*60+3));
-    function reasonsFor(r){const reasons=[];reasons.push(language==="en"?`${r.distanceKm.toFixed(2)} km from the resident`:`يبعد ${r.distanceKm.toFixed(2)} كم عن المقيم`);reasons.push(language==="en"?`Trained for ${emergencyNames[selectedEmergency].en.toLowerCase()}`:`مدرب على ${emergencyNames[selectedEmergency].ar}`);if(el.needs4x4.checked&&r.fourByFour)reasons.push(language==="en"?"Has 4×4 access for desert terrain":"يمتلك مركبة دفع رباعي للتضاريس الصحراوية");reasons.push(language==="en"?`Equipment: ${r.equipmentEn.slice(0,2).join(", ")}`:`المعدات: ${r.equipmentAr.slice(0,2).join("، ")}`);return reasons}
-    function drawRoutes(){const u=mapPosition(currentRequest.location.lat,currentRequest.location.lng),p=mapPosition(currentRequest.primary.lat,currentRequest.primary.lng),b=mapPosition(currentRequest.backup.lat,currentRequest.backup.lng);[[el.primaryRoute,p],[el.backupRoute,b]].forEach(([line,target])=>{line.setAttribute("x1",u.x);line.setAttribute("y1",u.y);line.setAttribute("x2",target.x);line.setAttribute("y2",target.y);line.style.display="block"})}
-    function accessText(){const parts=[];if(currentRequest.access.landmark)parts.push((language==="en"?"Landmark: ":"المعلم: ")+currentRequest.access.landmark);if(currentRequest.access.gateNumber)parts.push((language==="en"?"Gate/farm: ":"البوابة/المزرعة: ")+currentRequest.access.gateNumber);if(currentRequest.access.visualDescription)parts.push((language==="en"?"Visual: ":"الوصف: ")+currentRequest.access.visualDescription);if(currentRequest.access.needs4x4)parts.push(language==="en"?"4×4 required":"دفع رباعي مطلوب");if(currentRequest.access.gateLocked)parts.push(language==="en"?"Gate may be locked":"قد تكون البوابة مغلقة");if(currentRequest.access.animalsNearby)parts.push(language==="en"?"Animals nearby":"حيوانات قريبة");if(currentRequest.access.hazardNearby)parts.push(language==="en"?"Machinery/fire hazard":"خطر آلات/حريق");return parts.length?parts.join(" · "):tr("notProvided")}
-    function createRequest(){if(!selectedEmergency){showToast(tr("selectEmergency"));return}if(!selectedPriority){showToast(tr("selectPriority"));return}if(!residentLocation){showToast(tr("shareLocation"));return}const relay=matchRelay();currentRequest={id:"DR-"+Date.now().toString().slice(-6),emergencyType:selectedEmergency,priority:selectedPriority,residentName:el.residentName.value.trim()||tr("noName"),residentPhone:el.residentPhone.value.trim(),notes:el.residentNotes.value.trim()||tr("noNotes"),location:{...residentLocation},access:{landmark:el.landmark.value.trim(),gateNumber:el.gateNumber.value.trim(),visualDescription:el.visualDescription.value.trim(),needs4x4:el.needs4x4.checked,gateLocked:el.gateLocked.checked,animalsNearby:el.animalsNearby.checked,hazardNearby:el.hazardNearby.checked},primary:{...relay.primary,etaMinutes:eta(relay.primary.distanceKm,relay.primary)},backup:{...relay.backup,etaMinutes:eta(relay.backup.distanceKm,relay.backup)},activeLevel:"primary",status:"waiting",createdAt:new Date().toISOString(),countdownRemaining:selectedPriority==="Critical"?25:selectedPriority==="Urgent"?40:60};countdownRemaining=currentRequest.countdownRemaining;save();drawRoutes();renderRequest();startCountdown();el.resultPanel.classList.add("show");el.resultPanel.scrollIntoView({behavior:"smooth",block:"start"});showToast(tr("requestCreated"))}
-    function activeResponder(){return currentRequest.activeLevel==="backup"?currentRequest.backup:currentRequest.primary}
-    function statusText(){return currentRequest.status==="waiting"?tr("waiting"):currentRequest.status==="backup_alerted"?tr("backupAlerted"):currentRequest.status==="accepted"?tr("accepted"):currentRequest.status==="on_way"?tr("onWay"):tr("arrived")}
-    function timelineItems(){const items=[{done:true,en:"Request, priority and rural access details received.",ar:"تم استلام الطلب والأولوية وتفاصيل الوصول الريفي."},{done:true,en:"Nearby suitable community responder matched.",ar:"تمت مطابقة مستجيب مجتمعي قريب ومناسب."},{done:currentRequest.activeLevel==="backup"||["accepted","on_way","arrived"].includes(currentRequest.status),pending:currentRequest.status==="waiting",en:currentRequest.activeLevel==="backup"?"Specialist backup alerted.":"Waiting for primary responder acceptance.",ar:currentRequest.activeLevel==="backup"?"تم تنبيه الدعم المتخصص.":"بانتظار قبول المستجيب القريب."},{done:["accepted","on_way","arrived"].includes(currentRequest.status),pending:!["accepted","on_way","arrived"].includes(currentRequest.status),en:"Responder accepted the request.",ar:"وافق المستجيب على الطلب."},{done:["on_way","arrived"].includes(currentRequest.status),pending:currentRequest.status==="accepted",en:"Responder is on the way.",ar:"المستجيب في الطريق."},{done:currentRequest.status==="arrived",pending:currentRequest.status==="on_way",en:"Responder arrived at the location.",ar:"وصل المستجيب إلى الموقع."}];return items}
-    function renderRequest(){if(!currentRequest)return;const p=currentRequest.primary,b=currentRequest.backup,active=activeResponder(),roleP=language==="ar"?p.roleAr:p.roleEn,roleB=language==="ar"?b.roleAr:b.roleEn;el.resultPanel.classList.add("show");el.resultRequestId.textContent=tr("requestId")+": "+currentRequest.id;el.residentStatusPill.textContent=statusText();el.countdownTitle.textContent=tr("countdownTitle")+": "+Math.max(0,countdownRemaining)+"s";el.countdownCopy.textContent=currentRequest.activeLevel==="backup"?(language==="en"?"The specialist backup is now the active responder.":"أصبح الدعم المتخصص هو المستجيب النشط."):tr("countdownCopy");el.triggerBackupButton.disabled=currentRequest.activeLevel==="backup"||["accepted","on_way","arrived"].includes(currentRequest.status);el.primaryName.textContent=p.name;el.primaryRole.textContent=roleP;el.primaryDistance.textContent=p.distanceKm.toFixed(2)+" km";el.primaryEta.textContent=p.etaMinutes+" "+tr("minutes");el.backupName.textContent=b.name;el.backupRole.textContent=roleB;el.backupDistance.textContent=b.distanceKm.toFixed(2)+" km";el.backupEta.textContent=b.etaMinutes+" "+tr("minutes");el.matchReasons.innerHTML=reasonsFor(active).map(x=>"<li>"+x+"</li>").join("");el.safetyGuidance.innerHTML=guidance[currentRequest.emergencyType][language].map(x=>"<li>"+x+"</li>").join("");el.residentTimeline.innerHTML=timelineItems().map(i=>`<li><span class="check ${i.done?"":i.pending?"pending":"grey"}">${i.done?"✓":i.pending?"…":"○"}</span><span>${language==="en"?i.en:i.ar}</span></li>`).join("");el.requestEmpty.style.display="none";el.requestCard.classList.add("show");el.dashboardOpenRequests.textContent=currentRequest.status==="arrived"?"0":"1";el.dashboardActiveResponder.textContent=active.name;el.dashboardPriority.textContent=priorityNames[currentRequest.priority][language];el.dashboardEmergencyType.textContent=emergencyNames[currentRequest.emergencyType][language];el.dashboardRequestTime.textContent=new Date(currentRequest.createdAt).toLocaleTimeString(language==="ar"?"ar-AE":"en-AE",{hour:"2-digit",minute:"2-digit"});el.dashboardRequestId.textContent=currentRequest.id;el.dashboardResidentName.textContent=currentRequest.residentName;el.dashboardCoordinates.textContent=currentRequest.location.lat.toFixed(5)+", "+currentRequest.location.lng.toFixed(5);el.dashboardPriorityDetail.textContent=priorityNames[currentRequest.priority][language];el.dashboardResponder.textContent=active.name+" · "+(language==="ar"?active.roleAr:active.roleEn);el.dashboardNotes.textContent=currentRequest.notes;el.dashboardAccess.textContent=accessText();el.dashboardReasons.innerHTML=reasonsFor(active).map(x=>"<li>"+x+"</li>").join("");const accepted=["accepted","on_way","arrived"].includes(currentRequest.status);el.acceptRequestButton.disabled=accepted;el.onWayButton.disabled=!accepted||["on_way","arrived"].includes(currentRequest.status);el.arrivedButton.disabled=currentRequest.status!=="on_way";el.declineButton.disabled=currentRequest.activeLevel==="backup"||accepted;drawRoutes()}
-    function save(){localStorage.setItem("desertReachRelay",JSON.stringify(currentRequest))}
-    function startCountdown(){clearInterval(countdownTimer);if(!currentRequest||currentRequest.activeLevel==="backup"||["accepted","on_way","arrived"].includes(currentRequest.status))return;countdownTimer=setInterval(()=>{countdownRemaining--;currentRequest.countdownRemaining=countdownRemaining;el.countdownTitle.textContent=tr("countdownTitle")+": "+Math.max(0,countdownRemaining)+"s";if(countdownRemaining<=0)triggerBackup()},1000)}
-    function triggerBackup(){if(!currentRequest||currentRequest.activeLevel==="backup")return;clearInterval(countdownTimer);currentRequest.activeLevel="backup";currentRequest.status="backup_alerted";currentRequest.countdownRemaining=0;countdownRemaining=0;save();renderRequest();showToast(tr("backupTriggered"))}
-    function acceptRequest(){if(!currentRequest)return;clearInterval(countdownTimer);currentRequest.status="accepted";save();renderRequest();showToast(tr("requestAccepted"))}
-    function markOnWay(){if(!currentRequest||currentRequest.status!=="accepted")return;currentRequest.status="on_way";save();renderRequest();showToast(tr("statusOnWay"))}
-    function markArrived(){if(!currentRequest||currentRequest.status!=="on_way")return;currentRequest.status="arrived";save();renderRequest();showToast(tr("statusArrived"))}
-    function fallback(){if(!currentRequest)return"";const active=activeResponder();return["DESERTREACH RESCUE PACKET","Request: "+currentRequest.id,"Emergency: "+currentRequest.emergencyType,"Priority: "+currentRequest.priority,"Location: "+currentRequest.location.lat.toFixed(5)+", "+currentRequest.location.lng.toFixed(5),"Map: https://www.openstreetmap.org/?mlat="+currentRequest.location.lat+"&mlon="+currentRequest.location.lng,"Resident: "+currentRequest.residentName,"Landmark: "+(currentRequest.access.landmark||"Not provided"),"Gate/Farm: "+(currentRequest.access.gateNumber||"Not provided"),"4x4 required: "+(currentRequest.access.needs4x4?"Yes":"No"),"Hazards: "+[currentRequest.access.animalsNearby?"animals":"",currentRequest.access.hazardNearby?"machinery/fire":""].filter(Boolean).join(", "),"Active responder: "+active.name,"Note: "+currentRequest.notes,"Prototype only — contact official emergency services in a real emergency."].join("\n")}
-    async function copyFallback(){const m=fallback();if(!m)return;try{await navigator.clipboard.writeText(m);showToast(tr("copied"))}catch(e){window.prompt("Copy this rescue packet:",m);showToast(tr("copyError"))}}
-    function resetDemo(){clearInterval(countdownTimer);localStorage.removeItem("desertReachRelay");location.reload()}
-    function restore(){const saved=localStorage.getItem("desertReachRelay");if(!saved)return;try{currentRequest=JSON.parse(saved);selectedEmergency=currentRequest.emergencyType;selectedPriority=currentRequest.priority;residentLocation=currentRequest.location;countdownRemaining=currentRequest.countdownRemaining??0;el.emergency.forEach(b=>b.classList.toggle("selected",b.dataset.type===selectedEmergency));el.priority.forEach(b=>b.classList.toggle("selected",b.dataset.priority===selectedPriority));setLocation(residentLocation.lat,residentLocation.lng,residentLocation.isDemo);el.landmark.value=currentRequest.access.landmark||"";el.gateNumber.value=currentRequest.access.gateNumber||"";el.visualDescription.value=currentRequest.access.visualDescription||"";el.needs4x4.checked=!!currentRequest.access.needs4x4;el.gateLocked.checked=!!currentRequest.access.gateLocked;el.animalsNearby.checked=!!currentRequest.access.animalsNearby;el.hazardNearby.checked=!!currentRequest.access.hazardNearby;renderRequest();startCountdown()}catch(e){localStorage.removeItem("desertReachRelay")}}
-    el.emergency.forEach(b=>b.addEventListener("click",()=>{selectedEmergency=b.dataset.type;el.emergency.forEach(i=>i.classList.toggle("selected",i===b));updateSubmit()}));
-    el.priority.forEach(b=>b.addEventListener("click",()=>{selectedPriority=b.dataset.priority;el.priority.forEach(i=>i.classList.toggle("selected",i===b));updateSubmit()}));
-    el.useLocationButton.addEventListener("click",()=>{if(!navigator.geolocation){showToast(tr("locationError"));return}showToast(tr("locating"));navigator.geolocation.getCurrentPosition(p=>{setLocation(p.coords.latitude,p.coords.longitude,false);showToast(tr("locationSuccess"))},()=>showToast(tr("locationError")),{enableHighAccuracy:true,timeout:10000,maximumAge:0})});
-    el.demoLocationButton.addEventListener("click",()=>{setLocation(DEMO_CENTER.lat,DEMO_CENTER.lng,true);showToast(tr("demoSuccess"))});
-    el.requestHelpButton.addEventListener("click",createRequest);el.triggerBackupButton.addEventListener("click",triggerBackup);el.openResponderButton.addEventListener("click",()=>switchView("responder"));el.copyFallbackButton.addEventListener("click",copyFallback);el.acceptRequestButton.addEventListener("click",acceptRequest);el.onWayButton.addEventListener("click",markOnWay);el.arrivedButton.addEventListener("click",markArrived);el.declineButton.addEventListener("click",triggerBackup);el.backToResidentButton.addEventListener("click",()=>switchView("resident"));el.residentTab.addEventListener("click",()=>switchView("resident"));el.responderTab.addEventListener("click",()=>switchView("responder"));el.languageButton.addEventListener("click",()=>{language=language==="en"?"ar":"en";applyLanguage()});el.resetButton.addEventListener("click",resetDemo);
-    initMap();applyLanguage();restore();
+
+    const guidance = {
+      Medical: {
+        en: [
+          "Stay with the injured person if it is safe.",
+          "Do not move them unless the area is dangerous.",
+          "Keep the phone nearby and follow official emergency advice."
+        ],
+        ar: [
+          "ابقَ مع المصاب إذا كان المكان آمناً.",
+          "لا تحركه إلا إذا كان المكان خطراً.",
+          "أبقِ الهاتف قريباً واتبع تعليمات الطوارئ الرسمية."
+        ]
+      },
+      Vehicle: {
+        en: [
+          "Turn on hazard lights if possible.",
+          "Stay away from moving traffic and unstable sand.",
+          "Tell the responder the vehicle colour and exact landmark."
+        ],
+        ar: [
+          "شغّل أضواء التحذير إن أمكن.",
+          "ابتعد عن حركة المرور والرمال غير المستقرة.",
+          "أخبر المستجيب بلون المركبة وأقرب معلم."
+        ]
+      },
+      Fire: {
+        en: [
+          "Move away from smoke and flames.",
+          "Warn nearby people and animals.",
+          "Do not return for belongings."
+        ],
+        ar: [
+          "ابتعد عن الدخان والنيران.",
+          "حذّر الأشخاص والحيوانات القريبة.",
+          "لا تعد لجلب الأغراض."
+        ]
+      },
+      Lost: {
+        en: [
+          "Stay in one safe visible place when possible.",
+          "Conserve phone battery and water.",
+          "Describe nearby tracks, lights or landmarks."
+        ],
+        ar: [
+          "ابقَ في مكان آمن وواضح إن أمكن.",
+          "حافظ على بطارية الهاتف والمياه.",
+          "صف المسارات أو الأضواء أو المعالم القريبة."
+        ]
+      },
+      Farm: {
+        en: [
+          "Keep a safe distance from frightened animals.",
+          "Switch off machinery only if safe to do so.",
+          "Tell the responder about gates and loose animals."
+        ],
+        ar: [
+          "ابتعد بأمان عن الحيوانات الخائفة.",
+          "أوقف الآلات فقط إذا كان ذلك آمناً.",
+          "أخبر المستجيب عن البوابات والحيوانات الطليقة."
+        ]
+      },
+      Safety: {
+        en: [
+          "Move to a visible safer place if possible.",
+          "Avoid confronting the threat.",
+          "Keep the phone quiet and nearby."
+        ],
+        ar: [
+          "انتقل إلى مكان أكثر أماناً ووضوحاً إن أمكن.",
+          "تجنب مواجهة الخطر.",
+          "أبقِ الهاتف صامتاً وقريباً."
+        ]
+      }
+    };
+
+    const ui = {
+      en: {
+        waiting: "Waiting for primary responder",
+        backupAlerted: "Backup specialist alerted",
+        accepted: "Responder accepted",
+        onWay: "Responder on the way",
+        arrived: "Responder arrived",
+        countdownTitle: "Automatic backup escalation",
+        countdownCopy: "If the nearby responder does not accept, the specialist backup is alerted automatically.",
+        locationReady: "Location ready",
+        demoReady: "Al Qua'a demo location ready",
+        selectEmergency: "Choose an emergency type.",
+        selectPriority: "Choose an urgency level.",
+        shareLocation: "Share a location before creating the relay.",
+        locating: "Requesting location permission…",
+        locationSuccess: "Your device location is ready.",
+        locationError: "Location could not be read. Use the demo location to continue.",
+        demoSuccess: "Al Qua'a demo location selected.",
+        requestCreated: "Rescue Relay created.",
+        backupTriggered: "Specialist backup has been alerted.",
+        requestAccepted: "The active responder accepted the request.",
+        statusOnWay: "Responder marked on the way.",
+        statusArrived: "Responder marked arrived.",
+        copied: "Low-signal rescue packet copied.",
+        copyError: "Copy the rescue packet manually.",
+        noName: "Anonymous resident",
+        noNotes: "No extra note provided",
+        minutes: "min",
+        requestId: "Request ID",
+        notProvided: "Not provided",
+        yes: "Yes",
+        no: "No"
+      },
+
+      ar: {
+        waiting: "بانتظار المستجيب القريب",
+        backupAlerted: "تم تنبيه الدعم المتخصص",
+        accepted: "وافق المستجيب",
+        onWay: "المستجيب في الطريق",
+        arrived: "وصل المستجيب",
+        countdownTitle: "تصعيد تلقائي للدعم",
+        countdownCopy: "إذا لم يقبل المستجيب القريب، يتم تنبيه الدعم المتخصص تلقائياً.",
+        locationReady: "الموقع جاهز",
+        demoReady: "موقع القوع التجريبي جاهز",
+        selectEmergency: "اختر نوع الطوارئ.",
+        selectPriority: "اختر مستوى الاستعجال.",
+        shareLocation: "شارك موقعاً قبل إنشاء السلسلة.",
+        locating: "جارٍ طلب إذن الموقع…",
+        locationSuccess: "موقع جهازك جاهز.",
+        locationError: "تعذر قراءة الموقع. استخدم الموقع التجريبي للمتابعة.",
+        demoSuccess: "تم اختيار موقع القوع التجريبي.",
+        requestCreated: "تم إنشاء سلسلة الإنقاذ.",
+        backupTriggered: "تم تنبيه الدعم المتخصص.",
+        requestAccepted: "وافق المستجيب النشط على الطلب.",
+        statusOnWay: "تم تحديد أن المستجيب في الطريق.",
+        statusArrived: "تم تحديد وصول المستجيب.",
+        copied: "تم نسخ حزمة الإنقاذ.",
+        copyError: "انسخ حزمة الإنقاذ يدوياً.",
+        noName: "مقيم مجهول",
+        noNotes: "لا توجد ملاحظة إضافية",
+        minutes: "دقيقة",
+        requestId: "رقم الطلب",
+        notProvided: "غير متوفر",
+        yes: "نعم",
+        no: "لا"
+      }
+    };
+
+    let language = "en";
+    let selectedEmergency = null;
+    let selectedPriority = null;
+    let residentLocation = null;
+    let currentRequest = null;
+    let countdownTimer = null;
+    let countdownRemaining = 45;
+
+    const $ = id => document.getElementById(id);
+
+    const el = {
+      residentTab: $("residentTab"),
+      responderTab: $("responderTab"),
+      languageButton: $("languageButton"),
+      resetButton: $("resetButton"),
+      residentView: $("residentView"),
+      responderView: $("responderView"),
+      emergency: [...document.querySelectorAll(".emergency")],
+      priority: [...document.querySelectorAll(".priority")],
+      useLocationButton: $("useLocationButton"),
+      demoLocationButton: $("demoLocationButton"),
+      locationTitle: $("locationTitle"),
+      locationDetails: $("locationDetails"),
+      landmark: $("landmark"),
+      gateNumber: $("gateNumber"),
+      visualDescription: $("visualDescription"),
+      needs4x4: $("needs4x4"),
+      gateLocked: $("gateLocked"),
+      animalsNearby: $("animalsNearby"),
+      hazardNearby: $("hazardNearby"),
+      residentName: $("residentName"),
+      residentPhone: $("residentPhone"),
+      residentNotes: $("residentNotes"),
+      requestHelpButton: $("requestHelpButton"),
+      mapStage: $("mapStage"),
+      userMarker: $("userMarker"),
+      primaryRoute: $("primaryRoute"),
+      backupRoute: $("backupRoute"),
+      resultPanel: $("resultPanel"),
+      resultRequestId: $("resultRequestId"),
+      residentStatusPill: $("residentStatusPill"),
+      countdownBox: $("countdownBox"),
+      countdownTitle: $("countdownTitle"),
+      countdownCopy: $("countdownCopy"),
+      triggerBackupButton: $("triggerBackupButton"),
+      primaryName: $("primaryName"),
+      primaryRole: $("primaryRole"),
+      primaryDistance: $("primaryDistance"),
+      primaryEta: $("primaryEta"),
+      backupName: $("backupName"),
+      backupRole: $("backupRole"),
+      backupDistance: $("backupDistance"),
+      backupEta: $("backupEta"),
+      matchReasons: $("matchReasons"),
+      safetyGuidance: $("safetyGuidance"),
+      residentTimeline: $("residentTimeline"),
+      openResponderButton: $("openResponderButton"),
+      copyFallbackButton: $("copyFallbackButton"),
+      requestEmpty: $("requestEmpty"),
+      requestCard: $("requestCard"),
+      dashboardOpenRequests: $("dashboardOpenRequests"),
+      dashboardActiveResponder: $("dashboardActiveResponder"),
+      dashboardPriority: $("dashboardPriority"),
+      dashboardEmergencyType: $("dashboardEmergencyType"),
+      dashboardRequestTime: $("dashboardRequestTime"),
+      dashboardRequestId: $("dashboardRequestId"),
+      dashboardResidentName: $("dashboardResidentName"),
+      dashboardCoordinates: $("dashboardCoordinates"),
+      dashboardPriorityDetail: $("dashboardPriorityDetail"),
+      dashboardResponder: $("dashboardResponder"),
+      dashboardNotes: $("dashboardNotes"),
+      dashboardAccess: $("dashboardAccess"),
+      dashboardReasons: $("dashboardReasons"),
+      acceptRequestButton: $("acceptRequestButton"),
+      onWayButton: $("onWayButton"),
+      arrivedButton: $("arrivedButton"),
+      declineButton: $("declineButton"),
+      backToResidentButton: $("backToResidentButton"),
+      toast: $("toast")
+    };
+
+    const tr = key => ui[language][key];
+
+    function applyLanguage() {
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+      el.languageButton.textContent = language === "en" ? "العربية" : "English";
+
+      document.querySelectorAll("[data-en][data-ar]").forEach(node => {
+        node.textContent = node.getAttribute("data-" + language);
+      });
+
+      document.querySelectorAll("[data-placeholder-en][data-placeholder-ar]").forEach(node => {
+        node.placeholder = node.getAttribute("data-placeholder-" + language);
+      });
+
+      if (residentLocation) {
+        updateLocationText();
+      }
+
+      if (currentRequest) {
+        renderRequest();
+      }
+    }
+
+    function showToast(message) {
+      el.toast.textContent = message;
+      el.toast.classList.add("show");
+
+      clearTimeout(showToast.timer);
+
+      showToast.timer = setTimeout(() => {
+        el.toast.classList.remove("show");
+      }, 2800);
+    }
+
+    function switchView(view) {
+      const resident = view === "resident";
+
+      el.residentView.classList.toggle("active", resident);
+      el.responderView.classList.toggle("active", !resident);
+      el.residentTab.classList.toggle("active", resident);
+      el.responderTab.classList.toggle("active", !resident);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    const rad = value => value * Math.PI / 180;
+
+    function distance(lat1, lng1, lat2, lng2) {
+      const earthRadius = 6371;
+      const dLat = rad(lat2 - lat1);
+      const dLng = rad(lng2 - lng1);
+
+      const calculation =
+        Math.sin(dLat / 2) ** 2 +
+        Math.cos(rad(lat1)) *
+        Math.cos(rad(lat2)) *
+        Math.sin(dLng / 2) ** 2;
+
+      return earthRadius *
+        2 *
+        Math.atan2(
+          Math.sqrt(calculation),
+          Math.sqrt(1 - calculation)
+        );
+    }
+
+    function mapPosition(lat, lng) {
+      return {
+        x: Math.max(
+          7,
+          Math.min(
+            93,
+            50 + (lng - DEMO_CENTER.lng) * 1200
+          )
+        ),
+        y: Math.max(
+          7,
+          Math.min(
+            93,
+            50 - (lat - DEMO_CENTER.lat) * 1200
+          )
+        )
+      };
+    }
+
+    function initMap() {
+      responders.forEach((responder, index) => {
+        const position = mapPosition(
+          responder.lat,
+          responder.lng
+        );
+
+        const marker = document.createElement("div");
+        const label = document.createElement("div");
+
+        marker.className =
+          "map-marker " +
+          (
+            responder.kind === "specialist"
+              ? "specialist"
+              : "responder"
+          );
+
+        marker.style.left = position.x + "%";
+        marker.style.top = position.y + "%";
+
+        marker.textContent =
+          responder.kind === "specialist"
+            ? "S"
+            : String(index + 1);
+
+        marker.title =
+          responder.name +
+          " — " +
+          responder.roleEn;
+
+        label.className = "marker-name";
+        label.style.left = position.x + "%";
+        label.style.top = position.y + "%";
+        label.textContent = responder.name;
+
+        el.mapStage.appendChild(marker);
+        el.mapStage.appendChild(label);
+      });
+    }
+
+    function setLocation(lat, lng, isDemo) {
+      residentLocation = {
+        lat,
+        lng,
+        isDemo
+      };
+
+      updateLocationText();
+
+      const position = mapPosition(lat, lng);
+
+      el.userMarker.style.left = position.x + "%";
+      el.userMarker.style.top = position.y + "%";
+      el.userMarker.classList.add("show");
+
+      updateSubmit();
+    }
+
+    function updateLocationText() {
+      el.locationTitle.textContent =
+        residentLocation.isDemo
+          ? tr("demoReady")
+          : tr("locationReady");
+
+      el.locationDetails.textContent =
+        residentLocation.lat.toFixed(5) +
+        ", " +
+        residentLocation.lng.toFixed(5);
+    }
+
+    function updateSubmit() {
+      el.requestHelpButton.disabled =
+        !(
+          selectedEmergency &&
+          selectedPriority &&
+          residentLocation
+        );
+    }
+
+    function scoreResponder(responder, kind) {
+      let score = 100;
+
+      if (!responder.types.includes(selectedEmergency)) {
+        return -9999;
+      }
+
+      const kilometres = distance(
+        residentLocation.lat,
+        residentLocation.lng,
+        responder.lat,
+        responder.lng
+      );
+
+      score -= kilometres * 4;
+
+      if (
+        kind === "primary" &&
+        responder.kind === "community"
+      ) {
+        score += 25;
+      }
+
+      if (
+        kind === "backup" &&
+        responder.kind === "specialist"
+      ) {
+        score += 35;
+      }
+
+      if (el.needs4x4.checked) {
+        score += responder.fourByFour
+          ? 28
+          : -120;
+      }
+
+      if (
+        selectedPriority === "Critical" &&
+        responder.kind === "specialist"
+      ) {
+        score += 8;
+      }
+
+      return score;
+    }
+
+    function matchRelay() {
+      const primary = responders
+        .filter(responder => responder.kind === "community")
+        .map(responder => ({
+          ...responder,
+          distanceKm: distance(
+            residentLocation.lat,
+            residentLocation.lng,
+            responder.lat,
+            responder.lng
+          ),
+          score: scoreResponder(
+            responder,
+            "primary"
+          )
+        }))
+        .sort(
+          (first, second) =>
+            second.score - first.score
+        )[0];
+
+      let backup = responders
+        .filter(responder => responder.kind === "specialist")
+        .map(responder => ({
+          ...responder,
+          distanceKm: distance(
+            residentLocation.lat,
+            residentLocation.lng,
+            responder.lat,
+            responder.lng
+          ),
+          score: scoreResponder(
+            responder,
+            "backup"
+          )
+        }))
+        .sort(
+          (first, second) =>
+            second.score - first.score
+        )[0];
+
+      if (!backup || backup.score < -500) {
+        backup = responders
+          .filter(
+            responder =>
+              responder.id !== primary.id &&
+              responder.types.includes(selectedEmergency)
+          )
+          .map(responder => ({
+            ...responder,
+            distanceKm: distance(
+              residentLocation.lat,
+              residentLocation.lng,
+              responder.lat,
+              responder.lng
+            ),
+            score: scoreResponder(
+              responder,
+              "backup"
+            )
+          }))
+          .sort(
+            (first, second) =>
+              second.score - first.score
+          )[0];
+      }
+
+      return {
+        primary,
+        backup
+      };
+    }
+
+    function eta(kilometres, responder) {
+      const speed =
+        responder.fourByFour
+          ? 45
+          : 32;
+
+      return Math.max(
+        4,
+        Math.round(
+          kilometres / speed * 60 + 3
+        )
+      );
+    }
+
+    function reasonsFor(responder) {
+      const reasons = [];
+
+      reasons.push(
+        language === "en"
+          ? `${responder.distanceKm.toFixed(2)} km from the resident`
+          : `يبعد ${responder.distanceKm.toFixed(2)} كم عن المقيم`
+      );
+
+      reasons.push(
+        language === "en"
+          ? `Trained for ${emergencyNames[selectedEmergency].en.toLowerCase()}`
+          : `مدرب على ${emergencyNames[selectedEmergency].ar}`
+      );
+
+      if (
+        el.needs4x4.checked &&
+        responder.fourByFour
+      ) {
+        reasons.push(
+          language === "en"
+            ? "Has 4×4 access for desert terrain"
+            : "يمتلك مركبة دفع رباعي للتضاريس الصحراوية"
+        );
+      }
+
+      reasons.push(
+        language === "en"
+          ? `Equipment: ${responder.equipmentEn.slice(0, 2).join(", ")}`
+          : `المعدات: ${responder.equipmentAr.slice(0, 2).join("، ")}`
+      );
+
+      return reasons;
+    }
+
+    function drawRoutes() {
+      const user = mapPosition(
+        currentRequest.location.lat,
+        currentRequest.location.lng
+      );
+
+      const primary = mapPosition(
+        currentRequest.primary.lat,
+        currentRequest.primary.lng
+      );
+
+      const backup = mapPosition(
+        currentRequest.backup.lat,
+        currentRequest.backup.lng
+      );
+
+      [
+        [el.primaryRoute, primary],
+        [el.backupRoute, backup]
+      ].forEach(([line, target]) => {
+        line.setAttribute("x1", user.x);
+        line.setAttribute("y1", user.y);
+        line.setAttribute("x2", target.x);
+        line.setAttribute("y2", target.y);
+        line.style.display = "block";
+      });
+    }
+
+    function accessText() {
+      const parts = [];
+
+      if (currentRequest.access.landmark) {
+        parts.push(
+          (
+            language === "en"
+              ? "Landmark: "
+              : "المعلم: "
+          ) +
+          currentRequest.access.landmark
+        );
+      }
+
+      if (currentRequest.access.gateNumber) {
+        parts.push(
+          (
+            language === "en"
+              ? "Gate/farm: "
+              : "البوابة/المزرعة: "
+          ) +
+          currentRequest.access.gateNumber
+        );
+      }
+
+      if (currentRequest.access.visualDescription) {
+        parts.push(
+          (
+            language === "en"
+              ? "Visual: "
+              : "الوصف: "
+          ) +
+          currentRequest.access.visualDescription
+        );
+      }
+
+      if (currentRequest.access.needs4x4) {
+        parts.push(
+          language === "en"
+            ? "4×4 required"
+            : "دفع رباعي مطلوب"
+        );
+      }
+
+      if (currentRequest.access.gateLocked) {
+        parts.push(
+          language === "en"
+            ? "Gate may be locked"
+            : "قد تكون البوابة مغلقة"
+        );
+      }
+
+      if (currentRequest.access.animalsNearby) {
+        parts.push(
+          language === "en"
+            ? "Animals nearby"
+            : "حيوانات قريبة"
+        );
+      }
+
+      if (currentRequest.access.hazardNearby) {
+        parts.push(
+          language === "en"
+            ? "Machinery/fire hazard"
+            : "خطر آلات/حريق"
+        );
+      }
+
+      return parts.length
+        ? parts.join(" · ")
+        : tr("notProvided");
+    }
+
+    function createRequest() {
+      if (!selectedEmergency) {
+        showToast(tr("selectEmergency"));
+        return;
+      }
+
+      if (!selectedPriority) {
+        showToast(tr("selectPriority"));
+        return;
+      }
+
+      if (!residentLocation) {
+        showToast(tr("shareLocation"));
+        return;
+      }
+
+      const relay = matchRelay();
+
+      currentRequest = {
+        id: "DR-" + Date.now().toString().slice(-6),
+        emergencyType: selectedEmergency,
+        priority: selectedPriority,
+        residentName:
+          el.residentName.value.trim() ||
+          tr("noName"),
+        residentPhone:
+          el.residentPhone.value.trim(),
+        notes:
+          el.residentNotes.value.trim() ||
+          tr("noNotes"),
+        location: {
+          ...residentLocation
+        },
+        access: {
+          landmark:
+            el.landmark.value.trim(),
+          gateNumber:
+            el.gateNumber.value.trim(),
+          visualDescription:
+            el.visualDescription.value.trim(),
+          needs4x4:
+            el.needs4x4.checked,
+          gateLocked:
+            el.gateLocked.checked,
+          animalsNearby:
+            el.animalsNearby.checked,
+          hazardNearby:
+            el.hazardNearby.checked
+        },
+        primary: {
+          ...relay.primary,
+          etaMinutes: eta(
+            relay.primary.distanceKm,
+            relay.primary
+          )
+        },
+        backup: {
+          ...relay.backup,
+          etaMinutes: eta(
+            relay.backup.distanceKm,
+            relay.backup
+          )
+        },
+        activeLevel: "primary",
+        status: "waiting",
+        createdAt: new Date().toISOString(),
+        countdownRemaining:
+          selectedPriority === "Critical"
+            ? 25
+            : selectedPriority === "Urgent"
+              ? 40
+              : 60
+      };
+
+      countdownRemaining =
+        currentRequest.countdownRemaining;
+
+      save();
+      drawRoutes();
+      renderRequest();
+      startCountdown();
+
+      el.resultPanel.classList.add("show");
+
+      el.resultPanel.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      showToast(tr("requestCreated"));
+    }
+
+    function activeResponder() {
+      return currentRequest.activeLevel === "backup"
+        ? currentRequest.backup
+        : currentRequest.primary;
+    }
+
+    function statusText() {
+      if (currentRequest.status === "waiting") {
+        return tr("waiting");
+      }
+
+      if (currentRequest.status === "backup_alerted") {
+        return tr("backupAlerted");
+      }
+
+      if (currentRequest.status === "accepted") {
+        return tr("accepted");
+      }
+
+      if (currentRequest.status === "on_way") {
+        return tr("onWay");
+      }
+
+      return tr("arrived");
+    }
+
+    function timelineItems() {
+      return [
+        {
+          done: true,
+          en: "Request, priority and rural access details received.",
+          ar: "تم استلام الطلب والأولوية وتفاصيل الوصول الريفي."
+        },
+        {
+          done: true,
+          en: "Nearby suitable community responder matched.",
+          ar: "تمت مطابقة مستجيب مجتمعي قريب ومناسب."
+        },
+        {
+          done:
+            currentRequest.activeLevel === "backup" ||
+            ["accepted", "on_way", "arrived"].includes(currentRequest.status),
+          pending:
+            currentRequest.status === "waiting",
+          en:
+            currentRequest.activeLevel === "backup"
+              ? "Specialist backup alerted."
+              : "Waiting for primary responder acceptance.",
+          ar:
+            currentRequest.activeLevel === "backup"
+              ? "تم تنبيه الدعم المتخصص."
+              : "بانتظار قبول المستجيب القريب."
+        },
+        {
+          done:
+            ["accepted", "on_way", "arrived"].includes(currentRequest.status),
+          pending:
+            !["accepted", "on_way", "arrived"].includes(currentRequest.status),
+          en: "Responder accepted the request.",
+          ar: "وافق المستجيب على الطلب."
+        },
+        {
+          done:
+            ["on_way", "arrived"].includes(currentRequest.status),
+          pending:
+            currentRequest.status === "accepted",
+          en: "Responder is on the way.",
+          ar: "المستجيب في الطريق."
+        },
+        {
+          done:
+            currentRequest.status === "arrived",
+          pending:
+            currentRequest.status === "on_way",
+          en: "Responder arrived at the location.",
+          ar: "وصل المستجيب إلى الموقع."
+        }
+      ];
+    }
+
+    function renderRequest() {
+      if (!currentRequest) {
+        return;
+      }
+
+      const primary = currentRequest.primary;
+      const backup = currentRequest.backup;
+      const active = activeResponder();
+
+      const primaryRole =
+        language === "ar"
+          ? primary.roleAr
+          : primary.roleEn;
+
+      const backupRole =
+        language === "ar"
+          ? backup.roleAr
+          : backup.roleEn;
+
+      el.resultPanel.classList.add("show");
+
+      el.resultRequestId.textContent =
+        tr("requestId") +
+        ": " +
+        currentRequest.id;
+
+      el.residentStatusPill.textContent =
+        statusText();
+
+      el.countdownTitle.textContent =
+        tr("countdownTitle") +
+        ": " +
+        Math.max(0, countdownRemaining) +
+        "s";
+
+      el.countdownCopy.textContent =
+        currentRequest.activeLevel === "backup"
+          ? (
+            language === "en"
+              ? "The specialist backup is now the active responder."
+              : "أصبح الدعم المتخصص هو المستجيب النشط."
+          )
+          : tr("countdownCopy");
+
+      el.triggerBackupButton.disabled =
+        currentRequest.activeLevel === "backup" ||
+        ["accepted", "on_way", "arrived"].includes(currentRequest.status);
+
+      el.primaryName.textContent =
+        primary.name;
+
+      el.primaryRole.textContent =
+        primaryRole;
+
+      el.primaryDistance.textContent =
+        primary.distanceKm.toFixed(2) +
+        " km";
+
+      el.primaryEta.textContent =
+        primary.etaMinutes +
+        " " +
+        tr("minutes");
+
+      el.backupName.textContent =
+        backup.name;
+
+      el.backupRole.textContent =
+        backupRole;
+
+      el.backupDistance.textContent =
+        backup.distanceKm.toFixed(2) +
+        " km";
+
+      el.backupEta.textContent =
+        backup.etaMinutes +
+        " " +
+        tr("minutes");
+
+      el.matchReasons.innerHTML =
+        reasonsFor(active)
+          .map(reason => "<li>" + reason + "</li>")
+          .join("");
+
+      el.safetyGuidance.innerHTML =
+        guidance[currentRequest.emergencyType][language]
+          .map(item => "<li>" + item + "</li>")
+          .join("");
+
+      el.residentTimeline.innerHTML =
+        timelineItems()
+          .map(item => {
+            const stateClass =
+              item.done
+                ? ""
+                : item.pending
+                  ? "pending"
+                  : "grey";
+
+            const icon =
+              item.done
+                ? "✓"
+                : item.pending
+                  ? "…"
+                  : "○";
+
+            const text =
+              language === "en"
+                ? item.en
+                : item.ar;
+
+            return `
+              <li>
+                <span class="check ${stateClass}">${icon}</span>
+                <span>${text}</span>
+              </li>
+            `;
+          })
+          .join("");
+
+      el.requestEmpty.style.display =
+        "none";
+
+      el.requestCard.classList.add("show");
+
+      el.dashboardOpenRequests.textContent =
+        currentRequest.status === "arrived"
+          ? "0"
+          : "1";
+
+      el.dashboardActiveResponder.textContent =
+        active.name;
+
+      el.dashboardPriority.textContent =
+        priorityNames[currentRequest.priority][language];
+
+      el.dashboardEmergencyType.textContent =
+        emergencyNames[currentRequest.emergencyType][language];
+
+      el.dashboardRequestTime.textContent =
+        new Date(
+          currentRequest.createdAt
+        ).toLocaleTimeString(
+          language === "ar"
+            ? "ar-AE"
+            : "en-AE",
+          {
+            hour: "2-digit",
+            minute: "2-digit"
+          }
+        );
+
+      el.dashboardRequestId.textContent =
+        currentRequest.id;
+
+      el.dashboardResidentName.textContent =
+        currentRequest.residentName;
+
+      el.dashboardCoordinates.textContent =
+        currentRequest.location.lat.toFixed(5) +
+        ", " +
+        currentRequest.location.lng.toFixed(5);
+
+      el.dashboardPriorityDetail.textContent =
+        priorityNames[currentRequest.priority][language];
+
+      el.dashboardResponder.textContent =
+        active.name +
+        " · " +
+        (
+          language === "ar"
+            ? active.roleAr
+            : active.roleEn
+        );
+
+      el.dashboardNotes.textContent =
+        currentRequest.notes;
+
+      el.dashboardAccess.textContent =
+        accessText();
+
+      el.dashboardReasons.innerHTML =
+        reasonsFor(active)
+          .map(reason => "<li>" + reason + "</li>")
+          .join("");
+
+      const accepted =
+        ["accepted", "on_way", "arrived"].includes(currentRequest.status);
+
+      el.acceptRequestButton.disabled =
+        accepted;
+
+      el.onWayButton.disabled =
+        !accepted ||
+        ["on_way", "arrived"].includes(currentRequest.status);
+
+      el.arrivedButton.disabled =
+        currentRequest.status !== "on_way";
+
+      el.declineButton.disabled =
+        currentRequest.activeLevel === "backup" ||
+        accepted;
+
+      drawRoutes();
+    }
+
+    function save() {
+      localStorage.setItem(
+        "desertReachRelay",
+        JSON.stringify(currentRequest)
+      );
+    }
+
+    function startCountdown() {
+      clearInterval(countdownTimer);
+
+      if (
+        !currentRequest ||
+        currentRequest.activeLevel === "backup" ||
+        ["accepted", "on_way", "arrived"].includes(currentRequest.status)
+      ) {
+        return;
+      }
+
+      countdownTimer = setInterval(() => {
+        countdownRemaining--;
+        currentRequest.countdownRemaining =
+          countdownRemaining;
+
+        el.countdownTitle.textContent =
+          tr("countdownTitle") +
+          ": " +
+          Math.max(0, countdownRemaining) +
+          "s";
+
+        if (countdownRemaining <= 0) {
+          triggerBackup();
+        }
+      }, 1000);
+    }
+
+    function triggerBackup() {
+      if (
+        !currentRequest ||
+        currentRequest.activeLevel === "backup"
+      ) {
+        return;
+      }
+
+      clearInterval(countdownTimer);
+
+      currentRequest.activeLevel =
+        "backup";
+
+      currentRequest.status =
+        "backup_alerted";
+
+      currentRequest.countdownRemaining =
+        0;
+
+      countdownRemaining = 0;
+
+      save();
+      renderRequest();
+      showToast(tr("backupTriggered"));
+    }
+
+    function acceptRequest() {
+      if (!currentRequest) {
+        return;
+      }
+
+      clearInterval(countdownTimer);
+
+      currentRequest.status =
+        "accepted";
+
+      save();
+      renderRequest();
+      showToast(tr("requestAccepted"));
+    }
+
+    function markOnWay() {
+      if (
+        !currentRequest ||
+        currentRequest.status !== "accepted"
+      ) {
+        return;
+      }
+
+      currentRequest.status =
+        "on_way";
+
+      save();
+      renderRequest();
+      showToast(tr("statusOnWay"));
+    }
+
+    function markArrived() {
+      if (
+        !currentRequest ||
+        currentRequest.status !== "on_way"
+      ) {
+        return;
+      }
+
+      currentRequest.status =
+        "arrived";
+
+      save();
+      renderRequest();
+      showToast(tr("statusArrived"));
+    }
+
+    function fallback() {
+      if (!currentRequest) {
+        return "";
+      }
+
+      const active =
+        activeResponder();
+
+      const hazards = [
+        currentRequest.access.animalsNearby
+          ? "animals nearby"
+          : "",
+        currentRequest.access.hazardNearby
+          ? "machinery or fire hazard"
+          : ""
+      ]
+        .filter(Boolean)
+        .join(", ");
+
+      return [
+        "DESERTREACH RESCUE PACKET",
+        "Request: " + currentRequest.id,
+        "Emergency: " + currentRequest.emergencyType,
+        "Priority: " + currentRequest.priority,
+        "Location: " +
+          currentRequest.location.lat.toFixed(5) +
+          ", " +
+          currentRequest.location.lng.toFixed(5),
+        "Map: https://www.openstreetmap.org/?mlat=" +
+          currentRequest.location.lat +
+          "&mlon=" +
+          currentRequest.location.lng,
+        "Resident: " + currentRequest.residentName,
+        "Landmark: " +
+          (
+            currentRequest.access.landmark ||
+            "Not provided"
+          ),
+        "Gate/Farm: " +
+          (
+            currentRequest.access.gateNumber ||
+            "Not provided"
+          ),
+        "Visual description: " +
+          (
+            currentRequest.access.visualDescription ||
+            "Not provided"
+          ),
+        "4x4 required: " +
+          (
+            currentRequest.access.needs4x4
+              ? "Yes"
+              : "No"
+          ),
+        "Gate may be locked: " +
+          (
+            currentRequest.access.gateLocked
+              ? "Yes"
+              : "No"
+          ),
+        "Hazards: " +
+          (
+            hazards ||
+            "None reported"
+          ),
+        "Active responder: " +
+          active.name,
+        "Note: " +
+          currentRequest.notes,
+        "Prototype only — contact official emergency services in a real emergency."
+      ].join("\n");
+    }
+
+    async function copyFallback() {
+      const message = fallback();
+
+      if (!message) {
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(message);
+        showToast(tr("copied"));
+      } catch (error) {
+        window.prompt(
+          "Copy this rescue packet:",
+          message
+        );
+
+        showToast(tr("copyError"));
+      }
+    }
+
+    function resetDemo() {
+      clearInterval(countdownTimer);
+
+      localStorage.removeItem(
+        "desertReachRelay"
+      );
+
+      location.reload();
+    }
+
+    function restore() {
+      const saved =
+        localStorage.getItem(
+          "desertReachRelay"
+        );
+
+      if (!saved) {
+        return;
+      }
+
+      try {
+        currentRequest =
+          JSON.parse(saved);
+
+        selectedEmergency =
+          currentRequest.emergencyType;
+
+        selectedPriority =
+          currentRequest.priority;
+
+        residentLocation =
+          currentRequest.location;
+
+        countdownRemaining =
+          currentRequest.countdownRemaining ?? 0;
+
+        el.emergency.forEach(button => {
+          button.classList.toggle(
+            "selected",
+            button.dataset.type === selectedEmergency
+          );
+        });
+
+        el.priority.forEach(button => {
+          button.classList.toggle(
+            "selected",
+            button.dataset.priority === selectedPriority
+          );
+        });
+
+        setLocation(
+          residentLocation.lat,
+          residentLocation.lng,
+          residentLocation.isDemo
+        );
+
+        el.landmark.value =
+          currentRequest.access.landmark || "";
+
+        el.gateNumber.value =
+          currentRequest.access.gateNumber || "";
+
+        el.visualDescription.value =
+          currentRequest.access.visualDescription || "";
+
+        el.needs4x4.checked =
+          Boolean(currentRequest.access.needs4x4);
+
+        el.gateLocked.checked =
+          Boolean(currentRequest.access.gateLocked);
+
+        el.animalsNearby.checked =
+          Boolean(currentRequest.access.animalsNearby);
+
+        el.hazardNearby.checked =
+          Boolean(currentRequest.access.hazardNearby);
+
+        renderRequest();
+        startCountdown();
+      } catch (error) {
+        localStorage.removeItem(
+          "desertReachRelay"
+        );
+      }
+    }
+
+    el.emergency.forEach(button => {
+      button.addEventListener("click", () => {
+        selectedEmergency =
+          button.dataset.type;
+
+        el.emergency.forEach(item => {
+          item.classList.toggle(
+            "selected",
+            item === button
+          );
+        });
+
+        updateSubmit();
+      });
+    });
+
+    el.priority.forEach(button => {
+      button.addEventListener("click", () => {
+        selectedPriority =
+          button.dataset.priority;
+
+        el.priority.forEach(item => {
+          item.classList.toggle(
+            "selected",
+            item === button
+          );
+        });
+
+        updateSubmit();
+      });
+    });
+
+    el.useLocationButton.addEventListener("click", () => {
+      if (!navigator.geolocation) {
+        showToast(tr("locationError"));
+        return;
+      }
+
+      showToast(tr("locating"));
+
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          setLocation(
+            position.coords.latitude,
+            position.coords.longitude,
+            false
+          );
+
+          showToast(tr("locationSuccess"));
+        },
+        () => {
+          showToast(tr("locationError"));
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    });
+
+    el.demoLocationButton.addEventListener("click", () => {
+      setLocation(
+        DEMO_CENTER.lat,
+        DEMO_CENTER.lng,
+        true
+      );
+
+      showToast(tr("demoSuccess"));
+    });
+
+    el.requestHelpButton.addEventListener(
+      "click",
+      createRequest
+    );
+
+    el.triggerBackupButton.addEventListener(
+      "click",
+      triggerBackup
+    );
+
+    el.openResponderButton.addEventListener(
+      "click",
+      () => switchView("responder")
+    );
+
+    el.copyFallbackButton.addEventListener(
+      "click",
+      copyFallback
+    );
+
+    el.acceptRequestButton.addEventListener(
+      "click",
+      acceptRequest
+    );
+
+    el.onWayButton.addEventListener(
+      "click",
+      markOnWay
+    );
+
+    el.arrivedButton.addEventListener(
+      "click",
+      markArrived
+    );
+
+    el.declineButton.addEventListener(
+      "click",
+      triggerBackup
+    );
+
+    el.backToResidentButton.addEventListener(
+      "click",
+      () => switchView("resident")
+    );
+
+    el.residentTab.addEventListener(
+      "click",
+      () => switchView("resident")
+    );
+
+    el.responderTab.addEventListener(
+      "click",
+      () => switchView("responder")
+    );
+
+    el.languageButton.addEventListener(
+      "click",
+      () => {
+        language =
+          language === "en"
+            ? "ar"
+            : "en";
+
+        applyLanguage();
+      }
+    );
+
+    el.resetButton.addEventListener(
+      "click",
+      resetDemo
+    );
+
+    initMap();
+    applyLanguage();
+    restore();
   </script>
+
 </body>
 </html>
