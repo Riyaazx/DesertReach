@@ -83,15 +83,69 @@
     }
 
     .logo {
+      position: relative;
       display: grid;
       place-items: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 16px;
-      color: #ffffff;
-      background: linear-gradient(145deg, var(--green2), var(--dark));
-      font-size: 1.35rem;
-      box-shadow: 0 10px 24px rgba(10, 118, 103, 0.22);
+      width: 58px;
+      height: 58px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #119b86, #063f37);
+      box-shadow:
+        0 12px 28px rgba(10, 118, 103, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      isolation: isolate;
+    }
+
+    .logo::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 14px;
+    }
+
+    .logo::after {
+      content: "";
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .logo-art {
+      position: relative;
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      display: block;
+    }
+
+    .logo-pin {
+      fill: rgba(255, 255, 255, 0.08);
+      stroke: #ffffff;
+      stroke-width: 2.4;
+      stroke-linejoin: round;
+    }
+
+    .logo-pin-dot {
+      fill: #ffffff;
+    }
+
+    .logo-route {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.72);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-dasharray: 3 4;
+    }
+
+    .logo-node {
+      fill: #ffffff;
+      opacity: 0.9;
     }
 
     .brand h1 {
@@ -1150,10 +1204,17 @@
   <div class="app">
     <header>
       <div class="brand">
-        <div class="logo">⌖</div>
+        <div class="logo" aria-label="DesertReach map and location logo">
+          <svg class="logo-art" viewBox="0 0 64 64" aria-hidden="true">
+            <path class="logo-route" d="M11 47c8-8 14-2 22-10 6-6 12-4 20-12"/>
+            <circle class="logo-node" cx="11" cy="47" r="3.2"/>
+            <circle class="logo-node" cx="53" cy="25" r="3.2"/>
+            <path class="logo-pin" d="M32 8c-8.8 0-16 7.2-16 16 0 11.6 16 28 16 28s16-16.4 16-28c0-8.8-7.2-16-16-16Z"/>
+            <circle class="logo-pin-dot" cx="32" cy="24" r="5.2"/>
+          </svg>
+        </div>
 
-```
-    <div>
+        <div>
       <h1>DesertReach</h1>
       <p data-en="The Rural Rescue Relay" data-ar="سلسلة الإنقاذ الريفية"></p>
     </div>
