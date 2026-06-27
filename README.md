@@ -6,6 +6,16 @@
 
 [Live Prototype](https://riyaazx.github.io/DesertReach/) · [GitHub Repository](https://github.com/Riyaazx/DesertReach)
 
+---
+
+## Demo Video
+
+**3-minute walkthrough:** problem, purpose, resident request, responder matching, backup escalation, responder dashboard, Arabic support and low-signal rescue packet.
+
+[Watch the DesertReach Demo Video](https://drive.google.com/file/d/18JY6P9tRUqwiVZZB8vhQ9SBPU6HYbvaf/view?usp=sharing)
+
+---
+
 ![DesertReach homepage](docs/screenshots/01-homepage.png)
 
 > **Safety notice:** DesertReach is a hackathon prototype, not an official emergency service. All responders, ETAs and integrations shown in the prototype are simulated. In a real emergency, users must contact the UAE’s official emergency services.
@@ -15,6 +25,18 @@
 DesertReach was created for **Tatweer Hackathon 2026 — Challenge 2**, focused on helping people receive urgent support across the dispersed community of Al Qua’a.
 
 Al Qua’a includes farms, desert roads and widely separated homes. In an urgent situation, sharing coordinates alone may not be enough. Responders may also need the correct farm gate, a visible landmark, terrain information, a suitable vehicle and awareness of nearby hazards.
+
+## Why DesertReach matters
+
+In rural areas, emergency response is not only about sending a location. The responder also needs to understand how to reach the person safely.
+
+DesertReach was designed to quickly answer three important questions:
+
+1. Where is the person?
+2. Who nearby is suitable to help?
+3. What details does the responder need to reach them safely?
+
+The goal is to make the first few minutes of rural emergency coordination faster, clearer and more organised.
 
 ## What DesertReach does
 
@@ -36,22 +58,22 @@ The prototype does not simply choose the nearest person. It considers emergency 
 
 Residents can choose from six emergency categories:
 
-- Medical
-- Vehicle or sand
-- Fire or smoke
-- Lost person
-- Farm or animal
-- Personal safety
+* Medical
+* Vehicle or sand
+* Fire or smoke
+* Lost person
+* Farm or animal
+* Personal safety
 
 They can also add:
 
-- nearest landmark;
-- farm or gate number;
-- vehicle or building description;
-- 4×4 requirement;
-- locked-gate warning;
-- nearby animals;
-- machinery or fire hazards.
+* nearest landmark;
+* farm or gate number;
+* vehicle or building description;
+* 4×4 requirement;
+* locked-gate warning;
+* nearby animals;
+* machinery or fire hazards.
 
 ## Rural coordination map
 
@@ -59,10 +81,10 @@ They can also add:
 
 The schematic map shows:
 
-- the resident location;
-- four simulated community responders;
-- three simulated specialist units;
-- primary and backup routes.
+* the resident location;
+* four simulated community responders;
+* three simulated specialist units;
+* primary and backup routes.
 
 ## Explainable matching
 
@@ -70,13 +92,13 @@ The schematic map shows:
 
 For each request, DesertReach displays:
 
-- the nearby community responder;
-- the specialist backup;
-- distance and ETA;
-- why the responder was selected;
-- available equipment;
-- first-minute safety guidance;
-- request progress.
+* the nearby community responder;
+* the specialist backup;
+* distance and ETA;
+* why the responder was selected;
+* available equipment;
+* first-minute safety guidance;
+* request progress.
 
 ## Automatic backup escalation
 
@@ -84,11 +106,11 @@ For each request, DesertReach displays:
 
 The escalation timer depends on urgency:
 
-| Priority | Prototype timer |
-|---|---:|
-| Critical | 25 seconds |
-| Urgent | 40 seconds |
-| Assistance | 60 seconds |
+| Priority   | Prototype timer |
+| ---------- | --------------: |
+| Critical   |      25 seconds |
+| Urgent     |      40 seconds |
+| Assistance |      60 seconds |
 
 When the timer reaches zero, the specialist backup becomes the active responder.
 
@@ -98,11 +120,11 @@ When the timer reaches zero, the specialist backup becomes the active responder.
 
 The responder can see:
 
-- emergency type and priority;
-- resident coordinates and notes;
-- the Rural Access Card;
-- the reason they were matched;
-- action buttons for accepting, travelling, arriving or escalating.
+* emergency type and priority;
+* resident coordinates and notes;
+* the Rural Access Card;
+* the reason they were matched;
+* action buttons for accepting, travelling, arriving or escalating.
 
 ![Responder on the way](docs/screenshots/07-on-the-way.png)
 
@@ -114,17 +136,17 @@ The prototype supports English and Arabic, including right-to-left layout.
 
 ## Main features
 
-| Feature | Description |
-|---|---|
+| Feature                     | Description                                                 |
+| --------------------------- | ----------------------------------------------------------- |
 | Suitable responder matching | Uses emergency type, distance, equipment and terrain access |
-| Two-level response | Community responder plus specialist backup |
-| Rural Access Card | Adds landmarks, gates and hazard information |
-| Automatic escalation | Activates backup if the first responder does not accept |
-| Status tracking | Accepted, on the way and arrived |
-| Low-signal packet | Creates a compact copyable message |
-| Bilingual interface | English and Arabic |
-| Local persistence | Saves the current request in the browser |
-| Responsive design | Works across different screen sizes |
+| Two-level response          | Community responder plus specialist backup                  |
+| Rural Access Card           | Adds landmarks, gates and hazard information                |
+| Automatic escalation        | Activates backup if the first responder does not accept     |
+| Status tracking             | Accepted, on the way and arrived                            |
+| Low-signal packet           | Creates a compact copyable message                          |
+| Bilingual interface         | English and Arabic                                          |
+| Local persistence           | Saves the current request in the browser                    |
+| Responsive design           | Works across different screen sizes                         |
 
 ## How the matching works
 
@@ -141,14 +163,14 @@ Distance is calculated using the Haversine formula. ETA values are illustrative 
 
 ## Technology
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Browser Geolocation API
-- Local Storage API
-- Clipboard API
-- Git and GitHub
-- GitHub Pages
+* HTML5
+* CSS3
+* Vanilla JavaScript
+* Browser Geolocation API
+* Local Storage API
+* Clipboard API
+* Git and GitHub
+* GitHub Pages
 
 ## Run locally
 
@@ -159,24 +181,24 @@ Distance is calculated using the Haversine formula. ETA values are illustrative 
 
 ## Limitations
 
-- Responders, locations, availability and ETAs are simulated.
-- No real emergency authority, clinic or volunteer is contacted.
-- The map is schematic and not live navigation.
-- The low-signal feature creates a copyable message but does not send SMS automatically.
-- There is no production authentication, secure backend or responder verification.
-- ETA values do not use live traffic or road conditions.
+* Responders, locations, availability and ETAs are simulated.
+* No real emergency authority, clinic or volunteer is contacted.
+* The map is schematic and not live navigation.
+* The low-signal feature creates a copyable message but does not send SMS automatically.
+* There is no production authentication, secure backend or responder verification.
+* ETA values do not use live traffic or road conditions.
 
 ## Future development
 
 A real pilot would require:
 
-- verified responder onboarding;
-- secure accounts and a backend database;
-- live availability and notifications;
-- SMS fallback;
-- privacy controls and audit logs;
-- approved local partnerships and operating procedures;
-- real-world usability and response-time testing.
+* verified responder onboarding;
+* secure accounts and a backend database;
+* live availability and notifications;
+* SMS fallback;
+* privacy controls and audit logs;
+* approved local partnerships and operating procedures;
+* real-world usability and response-time testing.
 
 Al Qua’a is the first use case. The same model could later be adapted for other rural communities.
 
